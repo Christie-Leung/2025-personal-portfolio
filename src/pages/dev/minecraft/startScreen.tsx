@@ -1,9 +1,8 @@
-import { Page } from "@/components";
-import { Terrain } from "@/threejs";
 import { Canvas } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { AmbientLight, BoxGeometry, Mesh, MeshStandardMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { OrbitControls } from '@react-three/drei';
+import { Terrain } from "@/threejs";
 
 const StartScreen = () => {
 

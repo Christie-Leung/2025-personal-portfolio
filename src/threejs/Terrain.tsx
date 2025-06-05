@@ -1,4 +1,4 @@
-import { BoxGeometry, BufferGeometry, Matrix4, Mesh, MeshStandardMaterial, NearestFilter, PlaneGeometry, SRGBColorSpace, TextureLoader } from "three";
+import { BoxGeometry, BufferGeometry, Matrix4, Mesh, MeshStandardMaterial } from "three";
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import { ImprovedNoise } from "three/examples/jsm/Addons.js";
@@ -53,10 +53,10 @@ const Terrain = () => {
     const material = new MeshStandardMaterial({ color: "#55cc55", wireframe: false});
     const mesh = new Mesh(mergedGeometry, material);
 
-    const texture = new TextureLoader().load('/textures/minecraft/atlas.png', (texture) => {
-      texture.colorSpace = SRGBColorSpace;
-      texture.magFilter = NearestFilter;
-    });
+    // const texture = new TextureLoader().load('/textures/minecraft/atlas.png', (texture) => {
+    //   texture.colorSpace = SRGBColorSpace;
+    //   texture.magFilter = NearestFilter;
+    // });
    
     scene.add(mesh);
 

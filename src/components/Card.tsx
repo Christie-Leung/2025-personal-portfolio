@@ -11,7 +11,7 @@ const Card = ({
 }: CardProps) => {
   return (
     <div 
-      className={twMerge(className, "flex justify-center p-4 rounded bg-main-opposite/40 backdrop-blur-sm border border-main-opposite/60 shadow-lg font-main")}>
+      className={twMerge(className, "flex items-center justify-center p-4 rounded bg-main-opposite/30 backdrop-blur-sm border border-main-opposite/40 shadow-lg font-main")}>
       {children}
     </div>
   )

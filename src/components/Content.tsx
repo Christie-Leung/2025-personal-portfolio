@@ -10,7 +10,7 @@ const Content = ({
   className = '',
 }: ContentProps) => {
   return (
-    <div className={twMerge('w-full items-center justify-center p-4 flex', className)}>
+    <div className={twMerge('z-1 w-full h-full items-center justify-center flex grow', className)}>
       {children}
     </div>
   )

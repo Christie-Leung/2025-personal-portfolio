@@ -1,201 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Birthstone&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Romanesco&display=swap');
-
-@font-face {
-  font-family: 'Minecraft';
-  src: url('./fonts/Minecraft.ttf') format('truetype');
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-@custom-variant creator (&:where(.creator, .creator *));
-
-
 @theme inline {
-  --font-minecraft: 'VT323', monospace;
-  --font-playfair: 'Playfair Display', serif;
-  --font-sans: 'DM Sans', sans-serif;
-  --font-family: 'DM Sans', sans-serif;
-  --font-romanesco: 'Romanesco', cursive;
   --font-heading: var(--text-heading);
   --font-main: var(--text-main);
+  --font-accent: var(--text-accent);
 
   --color-primary: var(--primary);
   --color-primary-lighter: var(--primary-lighter);
   --color-primary-darker: var(--primary-darker);
 
   --color-secondary: var(--secondary);
-  --color-secondary-lighter: #A0C4FF;
+  --color-secondary-lighter: var(--secondary-lighter);
+  --color-secondary-lighter: var(--secondary-darker);
 
-  --color-tertiary: #FFB6C1;
-  --color-tertiary-lighter: #FFB6C1;
-  --color-tertiary-darker: #FF6F91;
-  
-  --color-border-light: #E5DDE8;
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-lighter: var(--tertiary-lighter);
+  --color-tertiary-darker: var(--tertiary-darker);
 
-  --color-heading: #da7da7;
+  --color-heading: var(--heading);
   --color-main: var(--main);
   --color-main-opposite: var(--main-opposite);
 
   --color-neutral: var(--neutral);
   
-
-  --color-accent: #FBEEC1;
-  --color-accent-darker: #FAE49A;
-
-
-  --color-grass: #7CFC00;
-  --color-dirt: #8B4513;
-  --color-stone: #A9A9A9;
+  --color-accent: var(--accent);
 
   --spacing: 0.5rem;
-  --radius: 0.8rem;
+  --radius: var(--radius);
+
+  --text-md: 1rem;
 }
 
-:root {
-  --text-heading: 'Minecraft', monospace;
-  --text-main: "DM Sans", sans-serif;
-
-  --primary: #aa0000;
-  --primary-lighter: #FFE5F1;
-  --primary-darker: #C5618E;
-
-  --color-border-light: #E5DDE8;
-
-
-  --main: #1a1a1a;
-  --main-opposite: #fefefe;
-
-  --neutral: #fefefe;
-}
-
-.dark {
-  --primary-lighter: #C5618E;
-  --primary-darker: #FFE5F1
-
-  --color-border-light: #E5DDE8;
-
-  --main: #fefefe;
-  --main-opposite: #1a1a1a;
-
-  --neutral: #1a1a1a;
-}
-
-.creator {
-  --text-main: "Playfair Display", serif;
-  --text-heading: 'Romanesco', cursive;
-  --primary: #da7da7;
-  --primary-lighter: #FFE5F1;
-  --primary-darker: #C5618E;
-
-  --color-border-light: #E5DDE8;
-
-  --secondary: #5C88FC;
-
-  --heading: #da7da7;
-
-  --main: #1a1a1a;
-  --main-opposite: #fefefe;
-  
-
-}
-
-.creator .dark {
-  --primary-lighter: #C5618E;
-  --primary-darker: #FFE5F1
-
-  --color-border-light: #E5DDE8;
-
-  --main: #fefefe;
-  --main-opposite: #1a1a1a;
-}
-
-.developer {
-  --text-main: 'Minecraft', monospace;
-  --text-heading: 'Minecraft', monospace;
-
-  --primary: #aa0000;
-  --primary-lighter: #FFE5F1;
-  --primary-darker: #C5618E;
-
-  --color-border-light: #E5DDE8;
-
-  --heading: #da7da7;
-
-  --main: #1a1a1a;
-  --main-opposite: #fefefe;
-
-  --neutral: #fefefe;
-}
-
-.developer .dark {
-  --primary-lighter: #C5618E;
-  --primary-darker: #FFE5F1;
-
-  --color-border-light: #E5DDE8;
-
-  --main: #fefefe;
-  --main-opposite: #1a1a1a;
-
-  --neutral: #1a1a1a;
-}
+@import "./themes/main.css";
+@import "./themes/creator.css";
+@import "./themes/developer.css";
+@import "./themes/dreamer.css";
 
 @layer base {
   h1 {
-    @apply text-6xl font-bold font-heading text-primary;
+    @apply text-4xl sm:text-6xl md:text-7xl font-black font-heading text-heading;
   }
 
   h2 {
-    @apply text-3xl font-bold font-main text-primary;
+    @apply text-xl sm:text-2xl md:text-3xl font-bold font-main text-main;
   }
 
   h3 {
-    @apply text-2xl font-bold font-main text-primary;
+    @apply text-lg sm:text-xl md:text-2xl font-bold font-main text-main;
   }
 
   h4 {
-    @apply text-xl font-bold font-main text-primary;
+    @apply text-sm sm:text-lg md:text-xl font-bold font-main text-main;
   }
 
   p {
-    @apply text-base text-main font-main;
+    @apply text-sm sm:text-base text-main font-main;
   }
 
-  span {
-    @apply font-main;
+  body .home *:not(.animation) {
+    @apply transition-all ease-in-out duration-1500;
   }
-}
 
-
-.creator .heading-glow  {
-  color: #fbbef4ea;
-  font-size: 6rem;
-  margin-top: 1rem;
-  line-height: 0.5;
-  text-shadow: 
-    0 0 30px #da7da7, 
-    0 0 10px #ffffffc2,
-    0 0 0 #da7da7;
-  text-align: center;
-  
-  @variant dark {
-    color: #fbbef4;
-    text-shadow: 
-      0 0 40px #da7da799, 
-      0 0 2rem #F4AFE0,
-      -0.6px -0.6px 0 #F4AFE0,
-      0.6px -0.6px 0 #F4AFE0,
-      -0.6px 0.6px 0 #F4AFE0,
-      0.6px 0.6px 0 #F4AFE0,
-      -1px 0px 0 #F4AFE0,
-      1px 0px 0 #F4AFE0,
-      0px -1px 0 #F4AFE0,
-      0px 1px 0 #F4AFE0;
-    text-align: center;
+  html, body, #root {
+    @apply w-full h-full bg-neutral
   }
+
 }
 
 @keyframes float {

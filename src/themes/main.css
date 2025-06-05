@@ -1,0 +1,46 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --text-heading: 'Roboto', sans-serif;
+  --text-main: "Roboto", sans-serif;
+  --text-accent: "Roboto Condensed", sans-serif;
+
+  --primary: #aa0000;
+  --primary-lighter: #cd0000;
+  --primary-darker: #830000;
+
+  --heading: #aa0000;
+
+  --accent: #aa0000;
+
+
+  --main: #1a1a1a;
+  --main-opposite: #fefefe;
+
+  --neutral: #fefefe;
+
+  --radius: 0.8rem;
+}
+
+.dark {
+
+
+  --neutral: #1a1a1a;
+
+  --main: #fefefe;
+  --main-opposite: #1a1a1a;
+
+  --neutral: #1a1a1a;
+}
+
+.cursor {
+  width: 3rem;
+  height: 3rem;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 100;
+}

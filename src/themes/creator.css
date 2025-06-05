@@ -1,0 +1,84 @@
+
+@font-face {
+  font-family: 'Romanesco';
+  src: url('./fonts/Romanesco.ttf') format('truetype');
+  size-adjust: 150%;
+}
+
+@custom-variant creator (&:where(.creator, .creator *));
+
+.creator {
+  --text-main: "Playfair Display", serif;
+  --text-heading: 'Romanesco', cursive;
+  --text-accent: "Birthstone", cursive;
+
+  --primary: #da7da7;
+  --primary-lighter: #ee95bd;
+  --primary-darker: #C5618E;
+
+  --secondary: #5C88FC;
+
+  --heading: #da7da7;
+
+  --main: #1a1a1a;
+  --main-opposite: #fefefe;
+
+  --accent: #5C88FC;
+
+  --link: #5C88FC;
+
+  .cursor {
+    background-color: #ffffff;
+    width: 1rem;
+    height: 1rem;
+    border: none;
+    box-shadow:
+      0 0px 5px #ffffff;
+    text-shadow: 0 0 px #ffffff;
+  }
+
+  * {
+    cursor: none;
+  }
+  
+}
+
+.creator.dark {
+
+  --primary-lighter: #C5618E;
+  --primary-darker: #ee95bd;
+
+  --main: #fefefe;
+  --main-opposite: #1a1a1a;
+
+  --accent: #FAE49A;
+}
+
+
+.creator .heading-text {
+  color: #fbbef4ea;
+  margin-top: 1.8rem;
+  line-height: 1.7rem;
+  text-shadow: 
+    0 0 30px #da7da7, 
+    0 0 10px #ffffffc2,
+    0 0 0 #da7da7;
+  text-align: center;
+  
+}
+
+.creator.dark .heading-text {
+  color: #fbbef4;
+  text-shadow: 
+    0 0 40px #da7da799, 
+    0 0 2rem #F4AFE0,
+    -0.6px -0.6px 0 #F4AFE0,
+    0.6px -0.6px 0 #F4AFE0,
+    -0.6px 0.6px 0 #F4AFE0,
+    0.6px 0.6px 0 #F4AFE0,
+    -1px 0px 0 #F4AFE0,
+    1px 0px 0 #F4AFE0,
+    0px -1px 0 #F4AFE0,
+    0px 1px 0 #F4AFE0;
+  text-align: center;
+}

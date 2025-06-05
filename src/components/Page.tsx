@@ -1,4 +1,6 @@
+import { Cursor } from "@/animations";
 import { twMerge } from "tailwind-merge";
+import { isMobile } from "react-device-detect";
 
 type PageProps = {
   children: React.ReactNode;
@@ -11,8 +13,12 @@ const Page = ({
 }: PageProps) => {
   return (
     <div
-      className={twMerge('p-4 w-screen h-full min-h-screen flex items-center justify-center', className)}
+      className={twMerge(
+        'h-full p-4 w-screen overflow-y-auto md:h-screen flex items-center justify-center', 
+        className
+      )}
     >
+      {!isMobile && <Cursor />}
       {children}
     </div>
   );

@@ -17,13 +17,20 @@ const Stack = ({
 }: StackProps) => {
 
   const alignment = {
-    left: inline ? 'justify-start' : 'items-start',
-    right: inline ? 'justify-end' : 'items-end',
-    center: inline ? 'justify-center' : 'items-center',
+    left: inline ? 'items-center md:justify-start' : 'items-start',
+    right: inline ? 'items-center md:justify-end' : 'items-end',
+    center: inline ? 'items-center md:justify-center' : 'items-center',
   }
 
   return (
-    <div className={twMerge(className, "w-full h-full flex", inline ? 'flex-row' : 'flex-col', alignment[align], marginBottom ? 'mb-4' : '',)}>
+    <div className={twMerge(
+      "w-full flex", 
+      inline ? 'flex-col gap-y-2 lg:flex-row lg:gap-x-2' : 'flex-col gap-y-2', 
+      alignment[align], 
+      marginBottom ? 'mb-1 md:mb-4' : '',
+      
+      className,
+    )}>
       {children}
     </div>
   )

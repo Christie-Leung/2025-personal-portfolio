@@ -1,1 +1,1 @@
-export { default as Terrain } from './terrain';
+export { default as Terrain } from './Terrain';

@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'Minecraft';
+  src: url('./fonts/Minecraft.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'MinecraftBold';
+  src: url('./fonts/MinecraftBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MinecraftItalic';
+  src: url('./fonts/MinecraftItalic.otf') format('opentype');
+}
+
+@custom-variant developer (&:where(.developer, .developer *));
+
+.developer {
+  --text-main: 'Minecraft', monospace;
+  --text-heading: 'MinecraftBold', monospace;
+  --text-accent: 'MinecraftItalic', monospace;
+
+  --primary: #FEAE00;
+  --primary-lighter: #FFFF5A;
+  --primary-darker: #FEAE00;
+
+  --secondary:#654832;
+  --secondary-lighter: #854F2B;
+  --secondary-darker: #493424;
+
+
+  --heading: #FEAE00;
+
+  --main: #000000;
+  --main-opposite: #ffffff;
+
+  --neutral: #ffffff;
+
+  --accent: #0100A2;
+
+  --link: #81ACFF;
+
+  --radius: 0rem;
+  
+
+  button.primary {
+    box-shadow: 
+    inset -0.2rem -0.2rem 0 #00000066, 
+    inset 0.2rem 0.2rem 0 #ffffffbb;
+    border-color: #000000;
+    border-width: 0.15rem;
+    background-color: #717171;
+  }
+
+  button.primary:hover {
+    border-color: #ffffff;
+    border-width: 0.25rem;
+    background-color: #717171;
+    transform: none;
+    scale: 1;
+  }
+
+  h1, h2 {
+    text-shadow:
+      0.2rem 0.2rem 0 #00000044;
+  }
+
+  h3, h4 {
+    text-shadow:
+      0.08rem 0.08rem 0 #00000044;
+  }
+
+  p, span {
+    text-shadow:
+      0.1rem 0.1rem 0 #00000044;
+  }
+
+  .cursor {
+    background-image: url(https://media.forgecdn.net/avatars/thumbnails/131/137/256/256/636465412680632924.png);
+    background-size: contain;
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
+  }
+
+  * {
+    cursor: none;
+  }
+
+  /* button.accent {
+    background-image: url("https://minecraft.wiki/images/Blank-sign-oak_JE2_BE2.png?2427e");
+    background-position: center;
+    object-fit: cover;
+    height: 3.5rem;
+    font-size: 0.7rem;
+    box-shadow:
+      0.2rem 0.2rem 0.5rem #00000066;
+  }
+
+  button.accent:hover {
+    font-size: 0.8rem;
+  } */
+}
+
+
+.developer.dark {
+  --primary-lighter: #FFFF5A;
+  --primary-darker: #FEAE00;
+
+  --main: #ffffff;
+  --main-opposite: #000000;
+
+  --neutral: #000000;
+
+  --accent: #4FFFFD;
+}
