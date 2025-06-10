@@ -9,6 +9,8 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: string;
+  fast: Boolean;
+  setFast: (fast: Boolean) => void;
   setTheme: (theme: Theme) => void;
   setAdditionalThemes: (themes: Persona | undefined) => void;
   resetAdditionalThemes: () => void;
@@ -16,6 +18,8 @@ type ThemeProviderState = {
 
 const initialState: ThemeProviderState = {
   theme: Theme.SYSTEM,
+  fast: true,
+  setFast: () => null,
   setTheme: () => null,
   setAdditionalThemes: () => null,
   resetAdditionalThemes: () => null,
@@ -37,6 +41,10 @@ export function ThemeProvider({
     () => (localStorage.getItem("vite-ui-additional-theme") as Persona) || ''
   );
 
+  const [fast, setFast] = useState<Boolean>(
+    () => localStorage.getItem("vite-ui-fast") === "true" || true
+  );
+
   const resetAdditionalThemes = () => {
     const root = window.document.documentElement;
     root.classList.remove("creator", "developer", "dreamer");
@@ -48,16 +56,21 @@ export function ThemeProvider({
 
     root.classList.remove("light", "dark");
     root.classList.remove("creator", "developer", "dreamer");
+    root.classList.remove("fast");
 
     if (theme) {
       root.classList.add(theme);
     }
 
-    if (additionalThemes) {
+    if (!fast && additionalThemes) {
       root.classList.add(additionalThemes);
     }
 
-  }, [theme, additionalThemes]);
+    if (fast) {
+      root.classList.add("fast");
+    }
+    
+  }, [theme, additionalThemes, fast]);
 
   const value = {
     theme,
@@ -73,6 +86,11 @@ export function ThemeProvider({
       setAdditionalThemes(theme);
     },
     resetAdditionalThemes,
+    fast,
+    setFast: (fast: Boolean) => {
+      localStorage.setItem("vite-ui-fast", fast ? "true" : "false");
+      setFast(fast);
+    },
   };
 
   return (

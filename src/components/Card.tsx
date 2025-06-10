@@ -1,3 +1,4 @@
+import { useTheme } from "@/provider";
 import { twMerge } from "tailwind-merge";
 
 type CardProps = {
@@ -9,9 +10,14 @@ const Card = ({
   children,
   className = '',
 }: CardProps) => {
+  const { fast } = useTheme();
   return (
     <div 
-      className={twMerge(className, "flex items-center justify-center p-4 rounded bg-main-opposite/30 backdrop-blur-sm border border-main-opposite/40 shadow-lg font-main")}>
+      className={twMerge(
+        className, 
+        "flex items-center justify-center p-4 rounded bg-main-opposite/30 border border-main-opposite/40 shadow-lg font-main",
+        !fast && "backdrop-blur-sm"
+      )}>
       {children}
     </div>
   )

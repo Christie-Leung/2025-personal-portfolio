@@ -4,3 +4,8 @@ export { default as Content } from './Content';
 export { default as Card } from './Card';
 export { default as Button } from './Button';
 export { default as ThemeToggle } from './ThemeToggle';
+export { default as Modal } from './Modal';
+export { default as Dismissible } from './Dismissible';
+export { default as OptimizeToggle } from './OptimizeToggle';
+export { default as Toggles } from './Toggles';
+export { default as AnimatedBackground } from './AnimatedBackground';

@@ -1,6 +1,7 @@
 import { Cursor } from "@/animations";
 import { twMerge } from "tailwind-merge";
 import { isMobile } from "react-device-detect";
+import { useTheme } from "@/provider";
 
 type PageProps = {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ const Page = ({
   children,
   className = '',
 }: PageProps) => {
+  const { fast } = useTheme();
   return (
     <div
       className={twMerge(
@@ -18,7 +20,7 @@ const Page = ({
         className
       )}
     >
-      {!isMobile && <Cursor />}
+      {!isMobile && !fast && <Cursor />}
       {children}
     </div>
   );

@@ -49,7 +49,7 @@ const Button = ({
     <div
       className={twMerge(
         "relative flex rounded",
-        active ? 'ring-1 ring-white p-[0.1rem]' : '',
+        active ? 'ring-1 ring-main p-[0.1rem]' : '',
         showTransition && !active ? 'hover:scale-105 transition-transform duration-300' : '',
         className
       )}
@@ -73,7 +73,7 @@ const Button = ({
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 5 }}
-          className="animation absolute top-0 md:top-full -mt-6 md:mt-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-main text-main-opposite rounded text-sm shadow-lg whitespace-nowrap z-100"
+          className="animation absolute top-0 lg:top-full -mt-6 lg:mt-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-main text-main-opposite rounded text-sm shadow-lg whitespace-nowrap z-100"
         >
           {helperText}
         </motion.div>
