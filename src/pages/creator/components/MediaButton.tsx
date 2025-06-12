@@ -22,7 +22,7 @@ const MediaButton = ({
       href={link}
       target="_blank"
       className={twMerge(
-        'flex flex-row items-center justify-between w-full max-w-5/6 md:max-w-1/2 h-7 rounded p-1 shadow-main/10 shadow-[0_0_5px_1px]',
+        'flex flex-row items-center justify-between w-full md:max-w-1/2 h-7 rounded p-1 shadow-main/10 shadow-[0_0_5px_1px]',
         fast ? 'border-1 border-main/10 hover:shadow-[0_0_5px_1px] hover:shadow-main/30': 'bg-main-opposite/50 hover:scale-102 hover:bg-main-opposite/80 transition-transform duration-300',
         className,
       )}

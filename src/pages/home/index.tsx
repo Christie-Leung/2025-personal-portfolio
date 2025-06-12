@@ -49,7 +49,6 @@ const Home = () => {
         className={twMerge(
           startTunnel ? "opacity-0" : "opacity-100"
         )}
-        centerCard
       >
         <Card
           className="w-full md:w-fit h-full p-10 relative"
@@ -60,7 +59,7 @@ const Home = () => {
               <Stack align="center" className="text-center gap-y-1" marginBottom>
                 <h4>welcome to the space of </h4>
                 <span className="relative group">
-                  <h1 className="heading-text">Christie Leung</h1>
+                  <h1 className="heading-text whitespace-nowrap">Christie Leung</h1>
                 </span>
               </Stack>
               <Stack align="center" className="gap-y-1">

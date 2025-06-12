@@ -24,7 +24,7 @@ const Tunnel: React.FC<TunnelProps> = ({
   className = "", 
 }) => {
   const { theme } = useTheme(); 
-  const lightColor = theme === "light" ? 0xfefefe : 0x000000; // Adjust light color based on theme
+  const lightColor = theme === "dark" ? 0xfefefe : 0x000000; // Adjust light color based on theme
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const rendererRef = useRef<WebGLRenderer>(null);

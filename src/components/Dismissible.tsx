@@ -1,8 +1,7 @@
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { twMerge } from "tailwind-merge";
 import Button from "./Button";
-import { MdCancel } from "react-icons/md";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 type DismissibleProps = {
   open: boolean;
@@ -20,8 +19,6 @@ const Dismissible = ({
   storageKey = '',
 }: DismissibleProps) => {
 
-  const dialogRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (!storageKey) return;
     
@@ -37,22 +34,20 @@ const Dismissible = ({
       localStorage.setItem(storageKey, 'true');
     }
   }
-  
+
   return (
     <Dialog 
       open={open} 
       onClose={() => setOpen(false)}
       className={twMerge(
         className,
-        'absolute z-50 top-0 p-4 left-0 w-full flex justify-center',
+        'absolute z-50 top-0 p-4 left-0 w-full flex justify-center focus-visible:outline-none',
       )}
       role="alertdialog"
-      initialFocus={dialogRef}
     >
-      <div className="none" ref={dialogRef}></div>
       <DialogPanel
         className={twMerge(
-          'flex flex-row text-left items-center bg-main-opposite rounded p-2 shadow-lg max-w-lg w-full text-main',
+          'flex flex-col md:flex-row text-left items-center bg-white rounded p-2 shadow-lg max-w-lg w-full text-black',
         )}
       >
         <div>{children}</div>
@@ -60,16 +55,9 @@ const Dismissible = ({
           variant="button-outline"
           size="small"
           onClick={handleClose}
-          className="whitespace-nowrap"
+          className="whitespace-nowrap ml-auto"
         >
           Don't Show Again
-        </Button>
-        <Button
-          variant="ghost"
-          size="small"
-          onClick={() => setOpen(false)}
-        >
-          <MdCancel />
         </Button>
       </DialogPanel>
     </Dialog>
