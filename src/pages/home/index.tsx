@@ -26,7 +26,7 @@ const Home = () => {
   }, [location.pathname]);
   
   return (
-    <Page className="home bg-neutral flex items-center justify-center">
+    <Page className="home">
       <AnimatedBackground 
         imageUrl={personaInfo.map(button => button.backgroundImageUrl || '')}
         target={target}
@@ -47,15 +47,16 @@ const Home = () => {
       )}
       <Content 
         className={twMerge(
-          "md:py-2 md:px-4 lg:py-4 lg:px-8 xl:py-8 xl:px-16 2xl:py-12 2xl:px-40 h-full",
           startTunnel ? "opacity-0" : "opacity-100"
-        )}>
+        )}
+        centerCard
+      >
         <Card
-          className="w-full h-full relative"
+          className="w-full md:w-fit h-full p-10 relative"
         >
           <>
             <Toggles />
-            <Stack align="center">
+            <Stack align="center" className="md:w-fit">
               <Stack align="center" className="text-center gap-y-1" marginBottom>
                 <h4>welcome to the space of </h4>
                 <span className="relative group">
@@ -91,7 +92,7 @@ const Home = () => {
                     variant="accent"
                     size="medium"
                     className={twMerge(
-                      "mt-1 md:mt-4",
+                      "mt-1",
                       target !== -1 ? "opacity-100 scale-105" : "opacity-0"
                     )}
                     onClick={() => {
@@ -110,6 +111,7 @@ const Home = () => {
       <Dismissible
         open={open}
         setOpen={setOpen}
+        storageKey="vite-ui-fast-mode-dismissed"
       >
         <span>
           {'You are on the optimized version of this page. Click '}
@@ -118,7 +120,7 @@ const Home = () => {
               setFast(false);
               setOpen(false);
             }}
-            className="hover:cursor-pointer underline text-link"
+            className="hover:cursor-pointer hover:font-bold underline text-link"
           >
             here
           </button>

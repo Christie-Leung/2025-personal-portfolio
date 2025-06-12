@@ -6,7 +6,7 @@ enum Theme {
 enum Persona {
   CREATOR = 'creator',
   DEVELOPER = 'developer',
-  DREAMER = 'dreamer',
+  BUILDER = 'builder',
 }
 
 export { Theme, Persona };

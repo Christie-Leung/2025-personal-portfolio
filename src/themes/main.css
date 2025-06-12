@@ -3,6 +3,7 @@
 :root {
   --text-heading: 'Roboto', sans-serif;
   --text-main: "Roboto", sans-serif;
+  --text-title: "Roboto Condensed", sans-serif;
   --text-accent: "Roboto Condensed", sans-serif;
 
   --primary: #aa0000;

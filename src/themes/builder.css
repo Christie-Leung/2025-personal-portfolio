@@ -1,0 +1,2 @@
+
+@custom-variant builder (&:where(.builder, .builder *));

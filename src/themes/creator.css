@@ -8,8 +8,9 @@
 @custom-variant creator (&:where(.creator, .creator *));
 
 .creator {
-  --text-main: "Playfair Display", serif;
-  --text-heading: 'Romanesco', cursive;
+  --text-main: "DM Sans", sans-serif;
+  --text-title: "Romanesco", cursive;
+  --text-heading: "Playfair Display", serif;
   --text-accent: "Birthstone", cursive;
 
   --primary: #da7da7;

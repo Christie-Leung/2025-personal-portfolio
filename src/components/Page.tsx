@@ -16,7 +16,7 @@ const Page = ({
   return (
     <div
       className={twMerge(
-        'h-full p-4 w-screen overflow-y-auto md:h-screen flex items-center justify-center', 
+        'relative h-full p-4 w-screen overflow-y-scroll min-h-screen flex items-center justify-center bg-neutral', 
         className
       )}
     >

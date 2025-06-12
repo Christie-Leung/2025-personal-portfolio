@@ -1,5 +1,5 @@
+import { personaInfo, PersonaInfoProps } from "@/constants";
 import { useTheme } from "@/provider";
-import { Persona } from "@/types/types";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -15,20 +15,27 @@ const AnimatedBackground = ({
   setTarget,
 }: AnimatedBackgroundProps) => {
 
-  const { fast } = useTheme();
+  const { fast, additionalThemes } = useTheme();
 
-  const defaultImage = imageUrl instanceof Array ? imageUrl[0] : imageUrl;
+  let defaultImage = imageUrl instanceof Array ? imageUrl[0] : imageUrl;
+  if (additionalThemes) {
+    defaultImage = personaInfo.filter((persona: PersonaInfoProps) => persona.theme === additionalThemes)[0]?.backgroundImageUrl || defaultImage;
+  }
+
+  console.log("defaultImage", defaultImage);
   const [firstImgUrl, setFirstImgUrl] = useState<string | null>(defaultImage);
   const [secondImgUrl, setSecondImgUrl] = useState<string | null>(defaultImage);
 
   const [flipImgUrl, setFlipImgUrl] = useState<boolean>(false);
 
   useEffect(() => {
-    setFirstImgUrl(imageUrl[target] || defaultImage);
-    if (setTarget) {
-      setSecondImgUrl(imageUrl[target] || defaultImage);
+    if (imageUrl instanceof Array) {
+      setFirstImgUrl(imageUrl[target] || defaultImage);
+      if (setTarget) {
+        setSecondImgUrl(imageUrl[target] || defaultImage);
+      }
+      setFlipImgUrl(false);
     }
-    setFlipImgUrl(false);
   }, [location.pathname]);
 
   useEffect(() => {

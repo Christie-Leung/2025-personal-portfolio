@@ -1,26 +1,82 @@
 type LinkProps = {
   icon: string;
   label: string;
-  onClick: () => void;
+  link: string;
 }
 
-export const creatorLinks: LinkProps[] = [
-  {
-    icon: "https://cdn-icons-png.flaticon.com/512/733/733579.png",
-    label: "💌 ugc + collabs",
-    onClick: () => window.location.href = ""
-  },
-]
+type LinkSections = {
+  sectionTitle?: string;
+  links: LinkProps[];
+}
 
-export const travels: LinkProps[] = [
+export const creatorLinks: LinkSections[] = [
   {
-    icon: "https://cdn-icons-png.flaticon.com/512/733/733579.png",
-    label: "✈️ travel essentials",
-    onClick: () => window.location.href = ""
+    links: [
+      {
+        icon: "./src/assets/creator/mail.PNG",
+        label: "💌 ugc + collabs",
+        link: "mailto:christie.3lsy@gmail.com",
+      },
+      {
+        icon: "./src/assets/creator/drink.PNG",
+        label: "buy me a drink ",
+        link: "https://buymeacoffee.com/christie.lsy"
+      },
+      {
+        icon: "./src/assets/creator/tiktok.PNG",
+        label: "tiktok",
+        link: "https://www.tiktok.com/@christie.lsy",
+      },
+      {
+        icon: "./src/assets/creator/youtube.PNG",
+        label: "youtube",
+        link: "https://www.youtube.com/@christie.3lsy?feature=shared&sub_confirmation=1"
+      }
+    ]
   },
   {
-    icon: "https://cdn-icons-png.flaticon.com/512/733/733579.png",
-    label: "🗺️ travel blog",
-    onClick: () => window.location.href = ""
+    sectionTitle: "» travel essentials «",
+    links: [
+      {
+        icon: "./src/assets/creator/duo.PNG",
+        label: "my language learning streak 🤭",
+        link: "https://www.duolingo.com/profile/ChristieLeung24",
+      },
+      {
+        icon: "./src/assets/creator/fraenk.PNG",
+        label: "my eu phone plan",
+        link: "https://fraenk.page.link/?link=https%3A%2F%2Ffraenk.de%2Fdeeplink%2Fmgm%3FfriendCode%3DCHRL907&apn=de.congstar.fraenk&amv=1040000&imv=1.4&isi=1493980266&ibi=de.congstar.fraenk&ius=fraenk&ofl=https%3A%2F%2Ffraenk.de",
+      },
+      {
+        icon: "./src/assets/creator/wise.PNG",
+        label: "my international debit card",
+        link: "https://wise.com/invite/ihpc/christiel93",
+      }
+    ]
+  }, 
+  {
+    sectionTitle: "» follow my footprints «",
+    links: [
+      {
+        icon: "./src/assets/creator/rome.jpg",
+        label: "🇮🇹 Rome",
+        link: "https://maps.app.goo.gl/shMyQyGPtU8g14BL7?g_st=i",
+      },
+      {
+        icon: "./src/assets/creator/osaka.jpg",
+        label: "🇯🇵 Osaka",
+        link: "https://maps.app.goo.gl/EQLMR6FBfP38x9H48"
+      },
+      {
+        icon: "./src/assets/creator/kyoto.jpg",
+        label: "🇯🇵 Kyoto",
+        link: "https://maps.app.goo.gl/EzqMZdxePfXzbnLw8?g_st=i"
+      },
+      {
+        icon: "./src/assets/creator/hk.jpg",
+        label: "🇭🇰 Hong Kong",
+        link: "https://maps.app.goo.gl/Vv79nSSoi3dc45C47?g_st=i"
+      }
+    ]
   }
-]
+];

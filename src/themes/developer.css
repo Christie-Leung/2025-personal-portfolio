@@ -18,6 +18,7 @@
 .developer {
   --text-main: 'Minecraft', monospace;
   --text-heading: 'MinecraftBold', monospace;
+  --text-title: 'MinecraftBold', monospace;
   --text-accent: 'MinecraftItalic', monospace;
 
   --primary: #FEAE00;

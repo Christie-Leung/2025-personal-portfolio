@@ -33,10 +33,10 @@ const Button = ({
     primary: 'primary bg-primary text-white hover:bg-primary-darker hover:shadow-lg shadow-md',
     secondary: 'bg-white/20 text-main hover:bg-white/40 border border-primary text-primary hover:primary-lighter backdrop-blur-md ',
     tertiary: 'bg-transparent text-blue-500 border border-blue-500 hover:bg-blue-50',
-    ghost: 'bg-transparent hover:bg-gray-100',
+    ghost: 'bg-transparent text-main/70 hover:text-main',
     link: 'text-link hover:italic underline hover:underline-offset-2',
     accent: 'text-accent font-accent hover:underline',
-    'button-outline': 'border border-primary-darker text-primary-darker',
+    'button-outline': 'border border-primary-darker text-primary-darker hover:bg-main/10',
   };
 
   const sizeClasses = {

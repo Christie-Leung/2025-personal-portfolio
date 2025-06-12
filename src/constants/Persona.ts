@@ -1,6 +1,6 @@
 import { Persona } from "@/types/types";
 
-type PersonaInfoProps = {
+export type PersonaInfoProps = {
   title: string;
   backgroundImageUrl?: string;
   navigateUrl: string;
@@ -26,9 +26,10 @@ export const personaInfo: PersonaInfoProps[] = [
     tubeTexture: "https://minecraft.wiki/images/BlockSprite_dirt.png",
   },
   {
-    title: 'A Dreamer',   
-    navigateUrl: "/dreamer",
-    helperText: 'Learn how I can contribute to your team',
-    theme: Persona.DREAMER,
+    title: 'A Builder',   
+    backgroundImageUrl: "",
+    navigateUrl: "/builder",
+    helperText: 'Look through my projects',
+    theme: Persona.BUILDER,
   }
 ]
