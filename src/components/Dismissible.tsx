@@ -29,21 +29,15 @@ const Dismissible = ({
     if (storedValue === 'true') {
       setOpen(false);
     }
-    console.log('page refresh', localStorage.getItem(storageKey));
   }, []);
-
-  console.log(storageKey)
 
   const handleClose = () => {
     setOpen(false);
-    console.log('onClose', storageKey);
     if (storageKey) {
       localStorage.setItem(storageKey, 'true');
-      console.log(`Setting ${storageKey} to true`);
     }
-    console.log('closing', localStorage.getItem(storageKey));
   }
-
+  
   return (
     <Dialog 
       open={open} 

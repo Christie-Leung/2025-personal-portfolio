@@ -44,7 +44,7 @@ export function ThemeProvider({
   );
 
   const [fast, setFast] = useState<Boolean>(
-    () => localStorage.getItem("vite-ui-fast") === "true" || false
+    () => localStorage.getItem("vite-ui-fast") === "true" || true
   );
 
   const resetAdditionalThemes = () => {

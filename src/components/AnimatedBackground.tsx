@@ -22,7 +22,6 @@ const AnimatedBackground = ({
     defaultImage = personaInfo.filter((persona: PersonaInfoProps) => persona.theme === additionalThemes)[0]?.backgroundImageUrl || defaultImage;
   }
 
-  console.log("defaultImage", defaultImage);
   const [firstImgUrl, setFirstImgUrl] = useState<string | null>(defaultImage);
   const [secondImgUrl, setSecondImgUrl] = useState<string | null>(defaultImage);
 

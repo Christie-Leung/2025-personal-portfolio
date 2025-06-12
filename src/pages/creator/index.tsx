@@ -2,6 +2,7 @@ import { AnimatedBackground, Card, Content, Page, Stack, Toggles } from "@/compo
 import MediaButton from "./components/MediaButton";
 import { Persona } from "@/types/types";
 import { creatorLinks, personaInfo } from "@/constants";
+import { config } from "@/utils";
 
 
 const CreatorPage = () => {
@@ -19,7 +20,7 @@ const CreatorPage = () => {
             marginBottom
           >
             <div className="w-12 h-12 rounded-full">
-              <img src="./src/assets/creator_pfp.jpg" alt="Christie Leung" className="w-full h-full rounded-full object-fill object-center" />
+              <img src={`${config.baseUrl}/assets/creator_pfp.jpg`} alt="Christie Leung" className="w-full h-full rounded-full object-fill object-center" />
             </div>
             <Stack align="center" className="gap-y-0.5" marginBottom>
               <h4>Christie Leung</h4>
@@ -27,17 +28,17 @@ const CreatorPage = () => {
             </Stack>
             <Stack align="center">
               {creatorLinks.map((section) => (
-                <>
+                <div key={section.sectionTitle} className="w-full h-full flex flex-col justify-center items-center text-center gap-y-2">
                   {section.sectionTitle && <h5>{section.sectionTitle}</h5>}
                   {section.links.map((link, linkIndex) => (
                     <MediaButton
                       key={linkIndex}
                       icon={link.icon}
                       label={link.label}
-                      link={link.link}
+                      link={config.baseUrl + link.link}
                     />
                   ))}
-                </>
+                </div>
               ))}
             </Stack>
 

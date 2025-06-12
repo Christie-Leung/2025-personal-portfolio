@@ -71,13 +71,12 @@ const Home = () => {
                       key={index}
                       variant="primary"
                       onClick={() => {
+                        setTarget(index);
+                        setAdditionalThemes(button.theme);
                         if (fast) {
                           navigate(personaInfo.filter(b => b.theme === button.theme)[0].navigateUrl);
                           return;
                         }
-                        
-                        setTarget(index);
-                        setAdditionalThemes(button.theme);
                       }}
                       helperText={button.helperText}
                       active={target === index}
