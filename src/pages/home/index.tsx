@@ -72,10 +72,6 @@ const Home = () => {
                       onClick={() => {
                         setTarget(index);
                         setAdditionalThemes(button.theme);
-                        if (fast) {
-                          navigate(personaInfo.filter(b => b.theme === button.theme)[0].navigateUrl);
-                          return;
-                        }
                       }}
                       helperText={button.helperText}
                       active={target === index}
@@ -85,7 +81,7 @@ const Home = () => {
                     </Button>
                   ))}
                 </Stack>
-                {!fast && target !== -1 && (
+                {target !== -1 && (
                   <Button
                     variant="accent"
                     size="medium"
@@ -106,25 +102,26 @@ const Home = () => {
           </>
         </Card>
       </Content>
-      <Dismissible
+      {<Dismissible
         open={open}
         setOpen={setOpen}
         storageKey="vite-ui-fast-mode-dismissed"
       >
         <span>
-          {'You are on the optimized version of this page. Click '}
+          {'You are on the animated version of this page. Click '}
           <button
             onClick={() => {
-              setFast(false);
+              setFast(true);
               setOpen(false);
             }}
             className="hover:cursor-pointer hover:font-bold underline text-link"
           >
             here
           </button>
-          {' to see the full version.'}
+          {' to see to hide the animations.'}
         </span>
       </Dismissible>
+    }
     </Page>
   )
 }

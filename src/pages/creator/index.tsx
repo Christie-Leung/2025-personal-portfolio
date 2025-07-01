@@ -11,7 +11,7 @@ const CreatorPage = () => {
       <AnimatedBackground
         imageUrl={personaInfo.filter(persona => persona.theme === Persona.CREATOR)[0].backgroundImageUrl || ''}
       />
-      <Content centerCard>
+      <Content>
         <Card className="relative w-full items-center justify-center flex flex-col">
           <Toggles />
           <Stack
@@ -35,7 +35,7 @@ const CreatorPage = () => {
                       key={linkIndex}
                       icon={link.icon}
                       label={link.label}
-                      link={config.baseUrl + link.link}
+                      link={link.link}
                     />
                   ))}
                 </div>

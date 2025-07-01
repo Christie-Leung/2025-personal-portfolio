@@ -68,6 +68,12 @@
   
 }
 
+.creator.fast .heading-text {
+  color: #C5618E;
+  margin-top: 1.8rem;
+  line-height: 1.7rem;
+}
+
 .creator.dark .heading-text {
   color: #fbbef4;
   text-shadow: 
