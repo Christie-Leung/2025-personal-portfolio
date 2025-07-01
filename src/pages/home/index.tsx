@@ -90,6 +90,10 @@ const Home = () => {
                       target !== -1 ? "opacity-100 scale-105" : "opacity-0"
                     )}
                     onClick={() => {
+                      if (fast) {
+                        navigate(personaInfo[target].navigateUrl);
+                        return;
+                      }
                       setStartTunnel(true)
                     }}
                     showTransition={!fast}
