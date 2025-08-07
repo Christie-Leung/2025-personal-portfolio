@@ -1,0 +1,11 @@
+{{#each groups}}
+{{#ifc vendorExtensions 'x-ts-imports'}}
+{{#each this}}
+import { {{name}} } from '{{path}}';
+{{/each}}
+{{/ifc}}
+{{/each}}
+
+{{#each groups}}
+import { {{name}}Handler } from './{{name}}.handler';
+{{/each}}

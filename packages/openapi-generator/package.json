@@ -1,0 +1,27 @@
+{
+  "name": "@2025-personal-portfolio/openapi-generator",
+  "version": "1.0.0",
+  "description": "OpenAPI Spec generator",
+  "scripts": {
+    "build": "pnpm run prebuild && tsc --project tsconfig.compile.json && tsc-alias -p tsconfig.compile.json",
+    "prebuild": "rimraf dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "author": "Christie Leung",
+  "license": "ISC",
+  "dependencies": {
+    "@openapi-generator-plus/handlebars-templates": "1.11.1",
+    "@openapi-generator-plus/types": "2.19.0",
+    "@openapi-generator-plus/typescript-generator-common": "1.12.0",
+    "handlebars": "^4.7.8",
+    "lodash.get": "^4.4.2",
+    "pluralize": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash.get": "^4.4.9",
+    "@types/pluralize": "^0.0.33"
+  }
+}

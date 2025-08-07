@@ -1,0 +1,24 @@
+{
+  "name": "@2025-personal-portfolio/common",
+  "version": "1.0.0",
+  "description": "Common utilities and types for the 2025 personal portfolio monorepo.",
+  "main": "src/",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "barrels": "barrelsby --config .barrelsby.json",
+    "clean": "rimraf dist/",
+    "dev": "onchange 'src/**/*.ts' -- pnpm run compile","build": "tsc -b && vite build",
+    "lint": "stylelint src/**/*.css --fix",
+    "preview": "vite preview",
+    "generate": "pnpm run generate:id",
+    "generate:id": "node generators/ids.js"
+  },
+  "keywords": [],
+  "author": "Christie Leung",
+  "license": "ISC",
+  "dependencies": {
+    "lodash.get": "^4.4.2"
+  }
+}

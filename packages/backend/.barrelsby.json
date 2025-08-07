@@ -1,0 +1,12 @@
+{
+  "directory": [
+  ],
+  "exclude": [
+    "./src/repositories/datasources/*",
+    "__mock__",
+    "__mocks__",
+    ".spec.ts"
+  ],
+  "delete": true,
+  "singleQuotes": true
+}

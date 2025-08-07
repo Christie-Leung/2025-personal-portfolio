@@ -1,0 +1,7 @@
+import { StrictBuilder } from 'builder-pattern';
+{{#ifEquals @root.generatorType 'server'}}
+import { Email, DateFormat, DateTime, Description, Enum, Property, Required, MaxLength, MinLength, Pattern, CollectionOf, Min, Max } from '@tsed/schema';
+import { IdProperty, ArrayIdProperty } from "~/core/db";
+{{/ifEquals}}
+
+

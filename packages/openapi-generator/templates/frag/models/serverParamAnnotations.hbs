@@ -1,0 +1,16 @@
+{{#indent '  '}}{{#stringContains schema.nativeType.serializedType 'Id'}}{{#ifEquals ../schema.type 'array'}}@ArrayIdProperty(){{/ifEquals}}{{#ifNotEquals ../schema.type 'array'}}@IdProperty(){{/ifNotEquals}}
+{{/stringContains}}{{/indent}}{{#indent '  '}}{{#if required}}@(Required(){{#ifc vendorExtensions 'x-ts-error'}}.Error('{{this}}'){{/ifc}})
+{{else}}@Property(){{/if}}{{/indent}}{{#indent '  '}}{{#if description}}@Description('{{description}}')
+{{/if}}{{/indent}}{{#indent '  '}}{{#ifc schema 'maxLength'}}@MaxLength({{this}})
+{{/ifc}}{{/indent}}{{#indent '  '}}{{#ifc schema 'minLength'}}@MinLength({{this}})
+{{/ifc}}{{/indent}}{{#indent '  '}}{{#ifc schema 'minimum'}}@Min({{this}})
+{{/ifc}}{{/indent}}{{#indent '  '}}{{#ifc schema 'maximum'}}@Max({{this}})
+{{/ifc}}{{/indent}}{{#indent '  '}}{{#ifc schema 'pattern'}}@(Pattern({{this}}){{#ifc ../vendorExtensions 'x-ts-error'}}.Error('{{this}}'){{/ifc}})
+{{/ifc}}{{/indent}}{{#indent '  '}}{{#ifEquals schema.format 'date-time'}}@DateTime()
+{{/ifEquals}}{{/indent}}{{#indent '  '}}{{#ifEquals schema.format 'email'}}@Email()
+{{/ifEquals}}{{/indent}}{{#indent '  '}}{{#ifEquals schema.format 'date'}}@DateFormat()
+{{/ifEquals}}{{/indent}}{{#indent '  '}}{{#ifEquals schema.schemaType 'ENUM'}}@Enum({{../this.nativeType.nativeType}})
+{{/ifEquals}}{{/indent}}{{#indent '  '}}{{#ifEquals schema.component.schema.schemaType 'ENUM'}}@Enum({{replace ../this.nativeType.nativeType '[]' ''}})
+{{/ifEquals}}{{/indent}}{{#indent '  '}}{{#ifEquals schema.type 'array'}}{{#if ../this.schema.component.schema.name}}@CollectionOf({{../this.schema.component.schema.name}}){{/if}}
+{{/ifEquals}}{{#ifc vendorExtensions 'x-ts-extra-annotations'}}{{#each this}}@{{this}}(){{/each}}
+{{/ifc}}{{/indent}}

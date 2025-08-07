@@ -1,0 +1,24 @@
+{
+  "name": "@2025-personal-portfolio/specs",
+  "version": "1.0.0",
+  "description": "OpenAPI Specs",
+  "type": "module",
+  "scripts": {
+    "generate:client": "pnpm run clean && cross-env OPEN_API_GENERATOR=client openapi-generator-plus -o generated/ -g ../openapi-generator/dist resources/openapi.json",
+    "generate:server": "pnpm run clean && cross-env OPEN_API_GENERATOR=server openapi-generator-plus -o generated/ -g ../openapi-generator/dist resources/openapi.json"
+  },
+  "keywords": [],
+  "author": "Christie Leung",
+  "license": "ISC",
+  "dependencies": {
+    "@redocly/cli": "^1.34.1",
+    "express": "^4.19.2",
+    "open": "^10.1.0",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "peerDependencies": {
+    "@tsed/common": "8.15.0",
+    "@tsed/di": "8.15.0",
+    "@tsed/schema": "8.15.0"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "@2025-personal-portfolio/backend",
+  "version": "1.0.0",
+  "description": "API for the 2025 personal portfolio monorepo.",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "barrels": "barrelsby --config .barrelsby.json",
+    "clean": "rimraf dist/ common/ src/generated",
+    "predev": "pnpm run generate && pnpm run barrels",
+    "dev": "pnpm run predev && tsnd --inspect --exit-child --cls --ignore-watch node_modules --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
+    "build": "tsc -b && vite build",
+    "lint": "stylelint src/**/*.css --fix",
+    "preview": "vite preview",
+    "generate": "rimraf src/generated && cross-env OPEN_API_GENERATOR=server openapi-generator-plus -o src/generated -g ../openapi-generator/dist ../specs/resources/openapi.json"
+  },
+  "keywords": [],
+  "author": "Christie Leung",
+  "license": "ISC",
+  "dependencies": {
+    "@2025-personal-portfolio/common": "workspace:^",
+    "@tsed/ajv": "^8.15.0",
+    "@tsed/common": "^8.15.0",
+    "@tsed/core": "^8.15.0",
+    "@tsed/di": "^8.15.0",
+    "@tsed/engines": "^8.15.0",
+    "@tsed/exceptions": "^8.15.0",
+    "@tsed/json-mapper": "^8.15.0",
+    "@tsed/logger": "^7.0.2",
+    "@tsed/logger-file": "^7.0.2",
+    "@tsed/openspec": "^8.15.0",
+    "@tsed/platform-cache": "^8.15.0",
+    "@tsed/platform-exceptions": "^8.15.0",
+    "@tsed/platform-express": "^8.15.0",
+    "@tsed/schema": "^8.15.0",
+    "@tsed/swagger": "^8.15.0",
+    "@types/method-override": "^3.0.0",
+    "barrelsby": "^2.8.1",
+    "cache-manager": "5.7.6",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "method-override": "^3.0.0",
+    "typeorm": "^0.3.25"
+  },
+  "tsed": {
+    "convention": "conv_default",
+    "architecture": "arc_default",
+    "packageManager": "pnpm"
+  }
+}

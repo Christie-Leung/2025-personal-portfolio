@@ -1,0 +1,105 @@
+{{>header}}
+{{>frag/apis/globalImports}}
+{{>frag/apis/imports}}
+
+{{#each groups}}
+@Controller('{{expressPath path}}')
+@Scope(ProviderScope.SINGLETON)
+@ContentType('{{mimeType}}')
+export class {{name}}Controller {
+    @Inject({{name}}Handler)
+    private handler: {{name}}Handler;
+
+{{#each operations}}
+    @{{httpMethod}}('{{expressPath path}}')
+    {{>frag/apis/description}}
+    {{#if securityRequirements}}
+    @{{vendorExtensions.x-ts-authenticated}}({
+    {{#ifc vendorExtensions 'x-ts-security'}}
+    {{#each this}}
+        {{@key}}: {{#isArray this}}[{{#each this}}'{{this}}',{{/each}}]{{else}}{{this}}{{/isArray}},
+    {{/each}}
+    {{/ifc}}
+    })
+    {{/if}}
+    {{#ifc vendorExtensions 'x-ts-use-hook'}}
+    {{#each ../vendorExtensions.x-ts-use-hook}}
+    @Use({{this}})
+    {{/each}}
+    {{/ifc}}
+    {{#each responses}}
+    @(Returns({{code}}{{#isPaginated this}}, InternalPage).Of({{this}}){{else}}{{#isArrayType this}}, Array).Of({{this}}{{else}}{{#ifNotEquals this 'void'}}, {{this}}{{/ifNotEquals}}{{/isArrayType}}{{/isPaginated}}{{^isPaginated this}}){{/isPaginated}})
+    {{/each}}
+    {{#ifc vendorExtensions 'x-ts-views'}}
+    @View('{{this}}')
+    {{/ifc}}
+    {{name}}(
+    {{#ifc vendorExtensions 'x-ts-auth-context'}}
+        @{{this}}() authContext: {{this}},
+    {{/ifc}}
+    {{#ifc vendorExtensions 'x-ts-request-context'}}
+        @{{this}}() requestContext: {{this}},
+    {{/ifc}}
+    {{#ifc vendorExtensions 'x-ts-context'}}
+        @{{this}}() context: {{this}},
+    {{/ifc}}
+    {{#isPaginated defaultResponse}}
+        @PageContext() pagination: Pagination,
+    {{/isPaginated}}
+    {{#if pathParams}}
+        {{#each pathParams}}
+        @PathParams('{{@key}}') {{@key}}: {{schema.nativeType.serializedType}},
+        {{/each}}
+    {{/if}}
+    {{#if requestBody}}
+        {{#if this.requestBody.schema}}@BodyParams() body: {{#ifEquals requestBody.schema.schemaType 'ARRAY'}}{{../requestBody.schema.component.nativeType.serializedType}}[]{{else}}{{../requestBody.schema.nativeType.serializedType}}{{/ifEquals}}{{else}}@RawBodyParams() body: Buffer{{/if}},
+    {{/if}}
+    {{#if queryParams}}
+        {{#each queryParams}}
+        {{#ifc schema 'schemaType'}}{{#ifEquals this 'ENUM'}}@Enum({{../schema.nativeType.serializedType}}){{/ifEquals}}{{/ifc}}
+        @QueryParams('{{serializedName}}') {{@key}}{{#unless required}}?{{/unless}}: {{schema.nativeType.serializedType}},
+        {{/each}}
+    {{/if}}
+    {{#if headerParams}}
+        {{#each headerParams}}
+        @HeaderParams('{{serializedName}}') {{@key}}: {{schema.nativeType.serializedType}},
+        {{/each}}
+    {{/if}}
+    ): {{#isPaginated defaultResponse}}Promise<InternalPage<{{this}}>>{{else}}Promise<{{this}}>{{/isPaginated}} {
+        return this.handler.{{name}}(
+            {{#ifc vendorExtensions 'x-ts-auth-context'}}
+            authContext,
+            {{/ifc}}
+            {{#ifc vendorExtensions 'x-ts-request-context'}}
+            requestContext,
+            {{/ifc}}
+            {{#ifc vendorExtensions 'x-ts-context'}}
+            context,
+            {{/ifc}}
+            {{#isPaginated defaultResponse}}
+            pagination,
+            {{/isPaginated}}
+            {{#if pathParams}}
+            {{#each pathParams}}
+            {{@key}},
+            {{/each}}
+            {{/if}}
+            {{#if requestBody}}
+              body,
+            {{/if}}
+            {{#if queryParams}}
+            {{#each queryParams}}
+            {{@key}},
+            {{/each}}
+            {{/if}}
+            {{#if headerParams}}
+            {{#each headerParams}}
+            {{@key}},
+            {{/each}}
+            {{/if}}
+        );
+    }
+
+{{/each}}
+}
+{{/each}}

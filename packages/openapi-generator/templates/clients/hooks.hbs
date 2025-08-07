@@ -1,0 +1,11 @@
+{{>header}}
+{{>frag/clients/globalImports}}
+{{>frag/clients/hookImports}}
+
+{{#each groups}}
+{{#each operations}}
+export const {{name}}Hook = (immediateCall: boolean = true, {{#if hasArgs}}initArgs?: {{titleCase name}}Args{{/if}}) => {
+  return useHttp({{name}}, { immediateCall{{#if hasArgs}}, initArgs{{/if}} })
+};
+{{/each}}
+{{/each}}

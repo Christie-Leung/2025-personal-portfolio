@@ -1,0 +1,21 @@
+{{#ifc this 'discriminator'}}
+{{#ifc schema.vendorExtensions 'x-ts-imports'}}
+{{#each this}}
+import { {{name}} } from '{{path}}';
+{{/each}}
+{{/ifc}}
+{{/ifc}}
+{{#ifc vendorExtensions 'x-ts-imports'}}
+{{#each this}}
+{{#ifNotEquals ../../name name}}
+import { {{../name}} } from '{{../path}}';
+{{/ifNotEquals }}
+{{/each}}
+{{/ifc}}
+{{#ifc this 'properties'}}
+{{#dedupeImports this}}
+{{#each this}}
+import { {{name}} } from '{{path}}';
+{{/each}}
+{{/dedupeImports}}
+{{/ifc}}

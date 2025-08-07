@@ -1,0 +1,34 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Personal Portfolio API",
+    "version": "1.0.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.murphyshome.net"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Get root",
+        "tags": ["Root"],
+        "operationId": "getRoot",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    }
+  }
+}

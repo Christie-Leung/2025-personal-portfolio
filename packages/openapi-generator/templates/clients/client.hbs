@@ -1,0 +1,88 @@
+{{>header}}
+{{>frag/clients/globalImports}}
+{{>frag/clients/imports}}
+
+{{#each groups}}
+{{#each operations}}
+export type {{titleCase name}}Args = {
+    {{#if securityRequirements}}
+    verifiedUser?: boolean;
+    {{/if}}
+    {{#if pathParams}}
+    ids: {
+    {{#each pathParams}}
+        {{@key}}: {{schema.nativeType.serializedType}};
+    {{/each}}
+    };
+    {{/if}}
+    {{#if queryParams}}
+    filters?: {
+    {{#each queryParams}}
+        {{@key}}?: {{schema.nativeType.serializedType}};
+    {{/each}}
+    {{#isPaginated defaultResponse}}
+        pageSize?: number;
+        pageToken?: string;
+    {{/isPaginated}}
+    };
+    {{else}}
+    {{#isPaginated defaultResponse}}
+    filters?: {
+        pageSize?: number;
+        pageToken?: string;
+    };
+    {{/isPaginated}}
+    {{/if}}
+    {{#ifc vendorExtensions 'x-ts-cache'}}
+    cacheCallback?: (args: {{titleCase ../name}}Args) => {
+        {{#if cache }}key?: string;{{/if}}
+        {{#ifDefined expire}}expireKey?: string;{{/ifDefined}}
+        {{#ifDefined ttl}}ttl?: number;{{/ifDefined}}
+    },
+    {{/ifc}}
+    {{#if requestBody}}
+      body: {{#ifEquals requestBody.schema.schemaType 'ARRAY'}}{{#with ../requestBody.schema.component.nativeType.serializedType}}{{this}}{{else}}unknown{{/with}}[]{{else}}{{#with ../requestBody.schema.nativeType.serializedType}}{{this}}{{else}}unknown{{/with}}{{/ifEquals}};
+    {{/if}}
+}
+
+{{>frag/clients/clientOperationDocumentation}}
+export const {{name}} = (args: {{titleCase name}}Args): Promise<HttpResult<{{#isPaginated defaultResponse}}Page<{{this}}>{{else}}{{this}}{{/isPaginated}}>> => {
+    const params = {};
+    // @ts-ignore
+    if (args?.ids) {
+      // @ts-ignore
+      params.keys = { ...args.ids };
+    }
+    // @ts-ignore
+    if (args?.filters) {
+      // @ts-ignore
+      params.queries = { ...args.filters };
+    }
+
+    const url = http.interpolatePath('{{fullPath}}', params);
+    {{#ifc vendorExtensions 'x-ts-cache'}}
+    const cache = {
+      {{#if cache }}key: '{{../name}}',{{/if}}
+      {{#ifDefined expire}}expireKey: '{{this}}',{{/ifDefined}}
+      {{#ifDefined ttl}}ttl: {{this}},{{/ifDefined}}
+      ...args?.cacheCallback?.(args),
+    };
+    {{/ifc}}
+
+    return http.{{lowerCase httpMethod}}(url, {
+    {{#if requestBody}}
+        body: args.body,
+    {{/if}}
+    {{#ifc vendorExtensions 'x-ts-cache'}}
+      cache,
+    {{/ifc}}
+    {{#if securityRequirements}}
+      auth: {
+        required: true,
+        verifiedUser: args?.verifiedUser,
+      },
+    {{/if}}
+    });
+}
+{{/each}}
+{{/each}}

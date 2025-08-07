@@ -1,0 +1,17 @@
+{
+  "directory": [
+    "src/enums",
+    "src/utils",
+    "src/paging",
+    "src/utils",
+    "src/ids",
+    "src/constants"
+  ],
+  "exclude": [
+    "__mock__",
+    "__mocks__",
+    ".spec.ts"
+  ],
+  "delete": true,
+  "singleQuotes": true
+}

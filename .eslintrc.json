@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json.schemastore.org/eslintrc.json",
+    "plugins": [
+      "prettier",
+      "unused-imports",
+      "no-only-tests"
+    ],
+    "extends": [
+        "airbnb", 
+        "airbnb-typescript", 
+        "plugin:prettier/recommended"
+    ],
+    "rules": {
+      "no-only-tests/no-only-tests": "error",
+      "unused-imports/no-unused-imports": "error",
+      "import/export": "off",
+      "import/prefer-default-export": "off",
+      "class-methods-use-this": "off",
+      "import/extensions": "off",
+      "no-param-reassign": "off",
+      "no-await-in-loop": "off",
+      "no-continue": "off",
+      "react/no-unstable-nested-components": ["error", { "allowAsProps": true }]
+    }
+}

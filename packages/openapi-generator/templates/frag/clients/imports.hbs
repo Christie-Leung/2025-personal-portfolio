@@ -1,0 +1,9 @@
+{{#ifEquals generatorType 'client'}}import { http, HttpResult } from '@2025-personal-portfolio/frontend-core';{{/ifEquals}}
+
+{{#each groups}}
+{{#ifc vendorExtensions 'x-ts-imports'}}
+{{#each this}}
+import { {{name}} } from '{{path}}';
+{{/each}}
+{{/ifc}}
+{{/each}}

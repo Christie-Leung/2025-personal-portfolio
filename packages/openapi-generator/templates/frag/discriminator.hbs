@@ -1,0 +1,18 @@
+{{#if discriminator}}
+{{#with discriminator}}
+	/**
+	 * Discriminator property
+	 */
+  {{#ifEquals @root.generatorType 'server'}}{{#unless ../../interface}}{{#ifEquals schema.schemaType 'ENUM'}}@Enum({{../../schema.name}}){{/ifEquals}}{{/unless}}{{/ifEquals}}
+  {{serializedName}}: {{{nativeType.serializedType}}};
+	
+{{/with}}
+{{/if}}
+{{#each discriminatorValues}}
+	/**
+	 * Value for discriminator in {{schema.nativeType.parentType}}
+	 */
+  {{#ifEquals @root.generatorType 'server'}}{{#unless ../../interface}}{{#ifc schema.discriminator.schema 'schemaType'}}{{#ifEquals this 'ENUM'}}@Enum({{removeDotted ../literalValue ../value}}){{/ifEquals}}{{/ifc}}{{/unless}}{{/ifEquals}}
+  {{#if ../declare}}declare {{/if}}{{schema.discriminator.serializedName}}: {{{literalValue}}};
+
+{{/each}}

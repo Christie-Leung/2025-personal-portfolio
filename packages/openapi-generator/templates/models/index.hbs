@@ -1,0 +1,19 @@
+{{>header}}
+{{>frag/models/globalImports}}
+
+{{#each schemas}}
+{{>frag/models/parametersImport}}
+
+{{#if (isEnum)}}
+{{>models/modelEnum}}
+{{else if (isObject)}}
+{{>models/modelGeneric}}
+{{else if (isOneOf)}}
+{{>models/modelOneOf}}
+{{else if (isAnyOf)}}
+{{>models/modelOneOf}}
+{{else if (isInterface)}}
+{{>models/modelInterface}}
+{{/if}}
+{{/each}}
+

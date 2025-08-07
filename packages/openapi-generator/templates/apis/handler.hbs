@@ -1,0 +1,47 @@
+{{>header}}
+{{>frag/handlers/globalImports}}
+{{>frag/handlers/imports}}
+
+{{#each groups}}
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const {{name}}Handler = Symbol("{{name}}Handler");
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export interface {{name}}Handler {
+{{#each operations}}
+    {{>frag/handlers/description}}
+    {{name}}(
+    {{#ifc vendorExtensions 'x-ts-auth-context'}}
+        authContext: {{this}},
+    {{/ifc}}
+    {{#ifc vendorExtensions 'x-ts-request-context'}}
+        requestContext: {{this}},
+    {{/ifc}}
+    {{#ifc vendorExtensions 'x-ts-context'}}
+        context: {{this}},
+    {{/ifc}}
+    {{#isPaginated defaultResponse}}
+        pagination: Pagination,
+    {{/isPaginated}}
+    {{#if pathParams}}
+    {{#each pathParams}}
+        {{@key}}: {{schema.nativeType.serializedType}},
+    {{/each}}
+    {{/if}}
+    {{#if requestBody}}
+        body: {{#if this.requestBody.schema}}{{#ifEquals requestBody.schema.schemaType 'ARRAY'}}{{../requestBody.schema.component.nativeType.serializedType}}[]{{else}}{{../requestBody.schema.nativeType.serializedType}}{{/ifEquals}}{{else}}Buffer{{/if}},
+    {{/if}}
+    {{#if queryParams}}
+    {{#each queryParams}}
+        {{@key}}{{#unless required}}?{{/unless}}: {{schema.nativeType.serializedType}},
+    {{/each}}
+    {{/if}}
+    {{#if headerParams}}
+    {{#each headerParams}}
+        {{@key}}Header: {{schema.nativeType.serializedType}},
+    {{/each}}
+    {{/if}}
+    ): {{#isPaginated defaultResponse}}Promise<InternalPage<{{this}}>>{{else}}Promise<{{this}}>{{/isPaginated}};
+
+{{/each}}
+}
+{{/each}}

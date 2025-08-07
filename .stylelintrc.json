@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/stylelintrc.json",
+  "plugins": ["stylelint-prettier"],
+  "rules": {
+    "selector-class-pattern": ".[a-zA-Z]+(_[a-zA-Z]+)*",
+    "prettier/prettier": true,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen"
+        ]
+      }
+    ],
+    "at-rule-no-deprecated": [
+      true,
+      {
+        "ignoreAtRules": ["apply"]
+      }
+    ],
+    "no-descending-specificity": null
+  },
+  "extends": "stylelint-config-standard"
+}
