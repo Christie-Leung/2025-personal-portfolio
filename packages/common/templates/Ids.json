@@ -1,0 +1,26 @@
+[
+  {
+    "prefix": "PJ",
+    "name": "Project"
+  },
+  {
+    "prefix": "PR",
+    "name": "ProjectReview"
+  },
+  {
+    "prefix": "CV",
+    "name": "Conversation"
+  },
+  {
+    "prefix": "CM",
+    "name": "ChatMessage"
+  },
+  {
+    "prefix": "WE",
+    "name": "WorkExperience"
+  },
+  {
+    "prefix": "CP",
+    "name": "Company"
+  }
+]

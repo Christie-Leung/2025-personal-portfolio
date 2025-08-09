@@ -20,24 +20,26 @@ const HomePage = () => {
     }
   ]
   return (
-    <div className="flex w-3/4 items-center justify-center flex-col text-center space-y-10">
-      <div className="space-y-1">
-        <h1>Welcome to Christie's Portfolio</h1>
-        <h4>What do you want to learn about her?</h4>
-        <div className="flex flex-row justify-evenly w-full py-2">
-          {items.map((item, index) => (
-            <Button 
-              key={index} 
-              roundedFull 
-              variant="secondary" 
-              size="lg" 
-              onClick={item.action}>
-              {item.label}
-            </Button>
-          ))}
+    <div className="flex w-full h-full items-center justify-center pb-20">
+      <div className="flex w-[50vw] items-center justify-center flex-col text-center space-y-10">
+        <div className="space-y-1">
+          <h1>Hi! I'm Christie.</h1>
+          <h4>What do you want to learn about me?</h4>
+          <div className="flex flex-row justify-evenly w-full py-2 space-x-2">
+            {items.map((item, index) => (
+              <Button 
+                key={index} 
+                roundedFull 
+                variant="secondary" 
+                size="lg" 
+                onClick={item.action}>
+                {item.label}
+              </Button>
+            ))}
+          </div>
         </div>
+        <Chatbox />
       </div>
-      <Chatbox />
     </div>
   );
 }

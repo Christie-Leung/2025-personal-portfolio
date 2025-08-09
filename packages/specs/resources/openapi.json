@@ -30,5 +30,482 @@
         }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "Project": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ProjectId"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the project"
+          },
+          "slug": {
+            "type": "string",
+            "description": "The URL-friendly identifier for the project",
+            "example": "project-one"
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description of the project"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectTag"
+            },
+            "description": "A list of tags associated with the project"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ProjectStatus"
+          },
+          "reviews": {
+            "type": "array",
+            "description": "User reviews and ratings",
+            "items": {
+              "$ref": "#/components/schemas/ProjectReview"
+            }
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL link to the project"
+          },
+          "appIcon": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL link to the project's icon"
+          },
+          "banner": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL link to the project's banner image"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the project was created",
+            "example": "2023-10-10T01:55:28Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the project was last updated",
+            "example": "2023-10-10T01:55:28Z"
+          }
+        },
+        "required": ["id", "name", "slug", "description", "link", "appIcon", "banner", "createdAt", "updatedAt"]
+      },
+      "ProjectReview": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ProjectReviewId"
+          },
+          "projectId": {
+            "$ref": "#/components/schemas/ProjectId"
+          },
+          "reviewerName": {
+            "type": "string",
+            "description": "The name of the user who wrote the review"
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "The rating given by the user"
+          },
+          "comment": {
+            "type": "string",
+            "description": "The user's comment on the project"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the review was created",
+            "example": "2023-10-10T01:55:28Z"
+          }
+        },
+        "required": ["id", "projectId", "reviewerName", "rating", "createdAt"]
+      },
+      "ProjectTag": {
+        "type": "string",
+        "description": "A tag associated with a project, used for categorization"
+      },
+      "ProjectStatus": {
+        "type": "string",
+        "enum": ["idea", "in_development", "archived", "completed"],
+        "description": "The current status of the project"
+      },
+      "Company": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/CompanyId"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the company"
+          },
+          "location": {
+            "type": "string",
+            "description": "The location of the company"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL link to the company's website"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the company was created",
+            "example": "2023-10-10T01:55:28Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the company was last updated",
+            "example": "2023-10-10T01:55:28Z"
+          }
+        },
+        "required": ["id", "name", "location"]
+      },
+      "Experience": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/WorkExperienceId"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the work experience"
+          },
+          "companyId": {
+            "$ref": "#/components/schemas/CompanyId"
+          },
+          "locationType": {
+            "$ref": "#/components/schemas/WorkLocationType"
+          },
+          "isCurrent": {
+            "type": "boolean",
+            "description": "Indicates whether this work experience is current"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the work experience"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the work experience"
+          },
+          "bullets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExperienceBullet"
+            },
+            "description": "A list of bullet points highlighting key achievements"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the work experience was created",
+            "example": "2023-10-10T01:55:28Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the work experience was last updated",
+            "example": "2023-10-10T01:55:28Z"
+          }
+        },
+        "required": ["id", "title", "companyId", "locationType", "bullets", "startDate", "endDate"]
+      },
+      "WorkLocationType": {
+        "type": "string",
+        "enum": ["onsite", "remote", "hybrid"],
+        "description": "The type of location for the work experience"
+      },
+      "ExperienceBullet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ExperienceBulletId"
+          },
+          "experienceId": {
+            "$ref": "#/components/schemas/WorkExperienceId"
+          },
+          "orderIndex": {
+            "type": "integer",
+            "description": "The order index of the bullet point"
+          },
+          "bulletPoint": {
+            "type": "string",
+            "description": "The bullet point text"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the bullet point was created",
+            "example": "2023-10-10T01:55:28Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the bullet point was last updated",
+            "example": "2023-10-10T01:55:28Z"
+          }
+        },
+        "required": ["id", "experienceId", "orderIndex", "bulletPoint"]
+      },
+      "Conversation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ConversationId"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the conversation"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            },
+            "description": "The messages in the conversation"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the conversation was created",
+            "example": "2023-10-10T01:55:28Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the conversation was last updated",
+            "example": "2023-10-10T01:55:28Z"
+          }
+        },
+        "required": ["id", "title", "messages", "createdAt", "updatedAt"]
+      },
+      "ChatMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ChatMessageId"
+          },
+          "conversationId": {
+            "$ref": "#/components/schemas/ConversationId"
+          },
+          "role": {
+            "$ref": "#/components/schemas/MessageRole"
+          },
+          "content": {
+            "$ref": "#/components/schemas/MessageContent"
+          },
+          "messageIndex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The index of the message in the conversation"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the message was created",
+            "example": "2023-10-10T01:55:28Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the message was last updated",
+            "example": "2023-10-10T01:55:28Z"
+          }
+        },
+        "required": ["id", "conversationId", "role", "messageIndex", "content", "createdAt", "updatedAt"]
+      },
+      "MessageRole": {
+        "type": "string",
+        "enum": ["user", "system"]
+      },
+      "MessageContent": {
+        "type": "object",
+        "properties": {
+          "blocks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MessageBlock"
+            }
+          }
+        },
+        "required": ["blocks"]
+      },
+      "MessageBlock": {
+        "oneOf": [
+          { "$ref": "#/components/schemas/ParagraphBlock" },
+          { "$ref": "#/components/schemas/HeadingBlock" },
+          { "$ref": "#/components/schemas/DividerBlock" },
+          { "$ref": "#/components/schemas/CodeBlock" },
+          { "$ref": "#/components/schemas/TableBlock" },
+          { "$ref": "#/components/schemas/ImageBlock" }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "paragraph": "#/components/schemas/ParagraphBlock",
+            "heading": "#/components/schemas/HeadingBlock",
+            "divider": "#/components/schemas/DividerBlock",
+            "code": "#/components/schemas/CodeBlock",
+            "table": "#/components/schemas/TableBlock",
+            "image": "#/components/schemas/ImageBlock"
+          }
+        }
+      },
+      "ParagraphBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "paragraph"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": ["type", "text"]
+      },
+      "HeadingBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "heading"
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 6,
+            "default": 2
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": ["type", "level", "text"]
+      },
+      "DividerBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "divider"
+          }
+        },
+        "required": ["type"]
+      },
+      "CodeBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "code"
+          },
+          "language": {
+            "type": "string",
+            "example": "typescript"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": ["type", "content"]
+      },
+      "TableBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "table"
+          },
+          "headers": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "required": ["type", "headers", "rows"]
+      },
+      "ImageBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "image"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "alt": {
+            "type": "string"
+          }
+        },
+        "required": ["type", "url"]
+      },
+      "ProjectId": {
+        "type": "object",
+        "x-ts-type": "@2025-personal-portfolio/common/dist/ids/ProjectId.ts",
+        "description": "The unique identifier for the project",
+        "example": "PJ123e4567-e89b-12d3-a456-426614174000"
+      },
+      "ProjectReviewId": {
+        "type": "object",
+        "x-ts-type": "@2025-personal-portfolio/common/dist/ids/ProjectReviewId.ts",
+        "description": "The unique identifier for the project review",
+        "example": "PR123e4567-e89b-12d3-a456-426614174001"
+      },
+      "ConversationId": {
+        "type": "object",
+        "x-ts-type": "@2025-personal-portfolio/common/dist/ids/ConversationId.ts",
+        "description": "The unique identifier for the conversation",
+        "example": "CS123e4567-e89b-12d3-a456-426614174000"
+      },
+      "ChatMessageId": {
+        "type": "object",
+        "x-ts-type": "@2025-personal-portfolio/common/dist/ids/ChatMessageId.ts",
+        "description": "The unique identifier for the chat message",
+        "example": "CM123e4567-e89b-12d3-a456-426614174000"
+      },
+      "WorkExperienceId": {
+        "type": "object",
+        "x-ts-type": "@2025-personal-portfolio/common/dist/ids/WorkExperienceId.ts",
+        "description": "The unique identifier for the work experience",
+        "example": "WE123e4567-e89b-12d3-a456-426614174000"
+      },
+      "ExperienceBulletId": {
+        "type": "object",
+        "x-ts-type": "@2025-personal-portfolio/common/dist/ids/ExperienceBulletId.ts",
+        "description": "The unique identifier for the experience bullet point",
+        "example": "EB123e4567-e89b-12d3-a456-426614174000"
+      },
+      "CompanyId": {
+        "type": "object",
+        "x-ts-type": "@2025-personal-portfolio/common/dist/ids/CompanyId.ts",
+        "description": "The unique identifier for the company",
+        "example": "CP123e4567-e89b-12d3-a456-426614174000"
+      }
+    }
   }
 }

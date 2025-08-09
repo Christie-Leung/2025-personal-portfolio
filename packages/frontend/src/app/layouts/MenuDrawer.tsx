@@ -11,7 +11,7 @@ const MenuDrawer = () => {
   const navigate = useNavigate();
 
   const isActive = (label: string) => {
-    return window.location.pathname.includes(label.toLowerCase());
+    return window.location.pathname.toLocaleLowerCase().includes(label.toLowerCase());
   }
 
   const tooltipButton = (icon: React.ReactNode, label: string, onClick?: () => void) => (
@@ -40,7 +40,18 @@ const MenuDrawer = () => {
       </Tooltip>
     </SidebarMenuItem>
   );
-  
+
+  const chatButton = (chat: string, identifier: string) => (
+    <SidebarMenuItem>
+      <Button 
+        variant={isActive(identifier) ? "secondary" : "ghost"}
+        className="w-full flex justify-start items-center p-2"
+        onClick={() => navigate(`/c/${identifier}`)}>
+        {chat}
+      </Button>
+    </SidebarMenuItem>
+  );
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -59,7 +70,7 @@ const MenuDrawer = () => {
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>
-          {tooltipButton(<SquarePenIcon />, "New Chat")}
+          {tooltipButton(<SquarePenIcon />, "New Chat", () => navigate('/'))}
           {tooltipButton(<SearchIcon />, "Search Chat")}
         </SidebarMenu>
       </SidebarHeader>
@@ -73,13 +84,18 @@ const MenuDrawer = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Chats</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {open && (
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-sm">Chats</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  {chatButton("My Work Experiences", "CA1843ef43-89a8-8e31-ac30-121745ca2a8d")}
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>

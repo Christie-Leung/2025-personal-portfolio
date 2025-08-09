@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/eslintrc.json",
+  "extends": [
+    "../../.eslintrc.json"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "settings": {
+    "react": "off"
+  },
+  "ignorePatterns": [
+    "src/ids/**/*"
+  ],
+  "rules": {
+    "class-methods-use-this": "off",
+    "no-underscore-dangle": "off",
+    "no-await-in-loop": "off",
+    "no-continue": "off",
+    "no-restricted-syntax": "off"
+  }
+}

@@ -11,6 +11,7 @@
     "generate": "rimraf src/generated && cross-env OPEN_API_GENERATOR=client openapi-generator-plus -o src/generated -g ../openapi-generator/dist ../specs/resources/openapi.json"
   },
   "dependencies": {
+    "@2025-personal-portfolio/common": "workspace:^",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",

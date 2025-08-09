@@ -1,11 +1,7 @@
 {
   "directory": [
     "src/enums",
-    "src/utils",
-    "src/paging",
-    "src/utils",
-    "src/ids",
-    "src/constants"
+    "src/ids"
   ],
   "exclude": [
     "__mock__",

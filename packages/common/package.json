@@ -9,7 +9,10 @@
   "scripts": {
     "barrels": "barrelsby --config .barrelsby.json",
     "clean": "rimraf dist/",
-    "dev": "onchange 'src/**/*.ts' -- pnpm run compile","build": "tsc -b && vite build",
+    "dev": "onchange 'src/**/*.ts' -- pnpm run compile",
+    "prebuild": "pnpm run clean && pnpm run generate && pnpm run barrels",
+    "build": "pnpm run prebuild && pnpm run compile",
+    "compile": "tsc --project tsconfig.compile.json && tsc-alias -p tsconfig.compile.json",
     "lint": "stylelint src/**/*.css --fix",
     "preview": "vite preview",
     "generate": "pnpm run generate:id",
@@ -19,6 +22,11 @@
   "author": "Christie Leung",
   "license": "ISC",
   "dependencies": {
-    "lodash.get": "^4.4.2"
+    "barrelsby": "^2.8.1",
+    "fs": "0.0.1-security",
+    "handlebars": "^4.7.8",
+    "lodash.get": "^4.4.2",
+    "path": "^0.12.7",
+    "uuid": "^11.1.0"
   }
 }
