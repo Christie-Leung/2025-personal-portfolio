@@ -15,7 +15,7 @@ const HomeLayout = () => {
       <main className="min-h-screen w-full">
         <Outlet />
       </main>
-      <Button variant="outline" className="fixed top-2.5 right-4 z-[1000]" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+      <Button variant="outline" className="fixed top-2.5 right-4 z-1" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
         {theme === "dark" ? <SunIcon /> : <MoonIcon />}
       </Button>
     </SidebarProvider>

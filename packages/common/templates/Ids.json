@@ -22,5 +22,9 @@
   {
     "prefix": "CP",
     "name": "Company"
+  },
+  {
+    "prefix": "EB",
+    "name": "ExperienceBullet"
   }
 ]

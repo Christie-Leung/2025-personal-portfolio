@@ -33,113 +33,6 @@
   },
   "components": {
     "schemas": {
-      "Project": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ProjectId"
-          },
-          "name": {
-            "type": "string",
-            "description": "The name of the project"
-          },
-          "slug": {
-            "type": "string",
-            "description": "The URL-friendly identifier for the project",
-            "example": "project-one"
-          },
-          "description": {
-            "type": "string",
-            "description": "A brief description of the project"
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProjectTag"
-            },
-            "description": "A list of tags associated with the project"
-          },
-          "status": {
-            "$ref": "#/components/schemas/ProjectStatus"
-          },
-          "reviews": {
-            "type": "array",
-            "description": "User reviews and ratings",
-            "items": {
-              "$ref": "#/components/schemas/ProjectReview"
-            }
-          },
-          "link": {
-            "type": "string",
-            "format": "uri",
-            "description": "The URL link to the project"
-          },
-          "appIcon": {
-            "type": "string",
-            "format": "uri",
-            "description": "The URL link to the project's icon"
-          },
-          "banner": {
-            "type": "string",
-            "format": "uri",
-            "description": "The URL link to the project's banner image"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "The date and time when the project was created",
-            "example": "2023-10-10T01:55:28Z"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "The date and time when the project was last updated",
-            "example": "2023-10-10T01:55:28Z"
-          }
-        },
-        "required": ["id", "name", "slug", "description", "link", "appIcon", "banner", "createdAt", "updatedAt"]
-      },
-      "ProjectReview": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ProjectReviewId"
-          },
-          "projectId": {
-            "$ref": "#/components/schemas/ProjectId"
-          },
-          "reviewerName": {
-            "type": "string",
-            "description": "The name of the user who wrote the review"
-          },
-          "rating": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 5,
-            "description": "The rating given by the user"
-          },
-          "comment": {
-            "type": "string",
-            "description": "The user's comment on the project"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "The date and time when the review was created",
-            "example": "2023-10-10T01:55:28Z"
-          }
-        },
-        "required": ["id", "projectId", "reviewerName", "rating", "createdAt"]
-      },
-      "ProjectTag": {
-        "type": "string",
-        "description": "A tag associated with a project, used for categorization"
-      },
-      "ProjectStatus": {
-        "type": "string",
-        "enum": ["idea", "in_development", "archived", "completed"],
-        "description": "The current status of the project"
-      },
       "Company": {
         "type": "object",
         "properties": {
@@ -263,6 +156,133 @@
         },
         "required": ["id", "experienceId", "orderIndex", "bulletPoint"]
       },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ProjectId"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the project"
+          },
+          "slug": {
+            "type": "string",
+            "description": "The URL-friendly identifier for the project",
+            "example": "project-one"
+          },
+          "description": {
+            "$ref": "#/components/schemas/MessageBlocks"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectTag"
+            },
+            "description": "A list of tags associated with the project"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ProjectStatus"
+          },
+          "reviews": {
+            "type": "array",
+            "description": "User reviews and ratings",
+            "items": {
+              "$ref": "#/components/schemas/ProjectReview"
+            }
+          },
+          "link": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SocialUrl"
+            },
+            "description": "A list of social media links associated with the project"
+          },
+          "appIcon": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL link to the project's icon"
+          },
+          "banner": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL link to the project's banner image"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the project was created",
+            "example": "2023-10-10T01:55:28Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the project was last updated",
+            "example": "2023-10-10T01:55:28Z"
+          }
+        },
+        "required": ["id", "name", "slug", "link", "description", "appIcon", "banner", "createdAt", "updatedAt"]
+      },
+      "ProjectReview": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ProjectReviewId"
+          },
+          "projectId": {
+            "$ref": "#/components/schemas/ProjectId"
+          },
+          "reviewerName": {
+            "type": "string",
+            "description": "The name of the user who wrote the review"
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "The rating given by the user"
+          },
+          "comment": {
+            "type": "string",
+            "description": "The user's comment on the project"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the review was created",
+            "example": "2023-10-10T01:55:28Z"
+          }
+        },
+        "required": ["id", "projectId", "reviewerName", "rating", "createdAt"]
+      },
+      "ProjectTag": {
+        "type": "string",
+        "description": "A tag associated with a project, used for categorization"
+      },
+      "ProjectStatus": {
+        "type": "string",
+        "enum": ["idea", "in_development", "archived", "completed"],
+        "description": "The current status of the project"
+      },
+      "SocialUrl": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "$ref": "#/components/schemas/UrlType"
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL link to the social media profile"
+          }
+        },
+        "required": ["platform", "link"]
+      },
+      "UrlType": {
+        "type": "string",
+        "enum": ["LinkedIn", "GitHub", "Instagram", "Website"],
+        "description": "The type of URL, either a website or a social media link"
+      },
       "Conversation": {
         "type": "object",
         "properties": {
@@ -308,7 +328,7 @@
             "$ref": "#/components/schemas/MessageRole"
           },
           "content": {
-            "$ref": "#/components/schemas/MessageContent"
+            "$ref": "#/components/schemas/MessageBlocks"
           },
           "messageIndex": {
             "type": "integer",
@@ -334,7 +354,7 @@
         "type": "string",
         "enum": ["user", "system"]
       },
-      "MessageContent": {
+      "MessageBlocks": {
         "type": "object",
         "properties": {
           "blocks": {
@@ -353,7 +373,8 @@
           { "$ref": "#/components/schemas/DividerBlock" },
           { "$ref": "#/components/schemas/CodeBlock" },
           { "$ref": "#/components/schemas/TableBlock" },
-          { "$ref": "#/components/schemas/ImageBlock" }
+          { "$ref": "#/components/schemas/ImageBlock" },
+          { "$ref": "#/components/schemas/ListBlock" }
         ],
         "discriminator": {
           "propertyName": "type",
@@ -363,7 +384,8 @@
             "divider": "#/components/schemas/DividerBlock",
             "code": "#/components/schemas/CodeBlock",
             "table": "#/components/schemas/TableBlock",
-            "image": "#/components/schemas/ImageBlock"
+            "image": "#/components/schemas/ImageBlock",
+            "list": "#/components/schemas/ListBlock"
           }
         }
       },
@@ -463,6 +485,22 @@
           }
         },
         "required": ["type", "url"]
+      },
+      "ListBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "list"
+          },
+          "ordered": { "type": "boolean", "default": false },
+          "items": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "One item per bullet/numbered entry"
+          }
+        },
+        "required": ["type", "ordered", "items"]
       },
       "ProjectId": {
         "type": "object",

@@ -1,61 +1,20 @@
-import { UserChat } from "@/components";
-import SystemChat from "@/components/chat/SystemChat";
 import { useParams } from "react-router-dom";
+import { experienceConvo } from "./temp/data";
+import ChatComponent from "@/components/chat/ChatComponent";
 
 type UseParams = {
   identifier: string;
 }
 
 const ChatPage = () => {
-  const { identifier } = useParams<UseParams>() as UseParams;
 
-  const messages = [
-    {
-      id: "CM123",
-      role: "user",
-      conversationId: "CV123",
-      messageIndex: 1,
-      createdAt: new Date().toISOString()
-    },
-    {
-      "role": "system",
-
-    }
-  ]
+  const conversation = experienceConvo;
 
   return (
-    <div className="w-full lg:w-1/2 space-y-6 [&>*:last-child]:pb-[70vh]">
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      <UserChat />
-      <SystemChat />
-      
+    <div className="w-full md:w-[65vw] lg:w-1/2 space-y-6 [&>*:last-child]:pb-[20vh]">
+      {conversation.messages.map((message, index) => (
+        <ChatComponent key={index} chatMessage={message} />
+      ))}
     </div>
   )
 }

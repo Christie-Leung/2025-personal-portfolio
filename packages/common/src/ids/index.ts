@@ -5,6 +5,7 @@
 export * from './ChatMessageId';
 export * from './CompanyId';
 export * from './ConversationId';
+export * from './ExperienceBulletId';
 export * from './Id';
 export * from './ProjectId';
 export * from './ProjectReviewId';

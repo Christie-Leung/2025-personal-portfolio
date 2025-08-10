@@ -32,10 +32,10 @@ const process = (
   else if (schema.scopedName !== null) {
     const item: XImports = {
       path: `./${schema.name}`,
-      name: schema.name,
+      name: schema.name
     };
 
-    addImport(schema.vendorExtensions, item);
+    // addImport(schema.vendorExtensions, item);
     if (child) {
       addImport(child.vendorExtensions, item);
     }
@@ -54,14 +54,14 @@ const process = (
     });
   }
 
-  schema?.discriminatorValues?.forEach((discriminator) => {
-    const name = discriminator.literalValue.split('.')[0];
-    const item: XImports = {
-      path: `./${name}`,
-      name,
-    };
-    addImport(schema.vendorExtensions, item);
-  });
+  // schema?.discriminatorValues?.forEach((discriminator) => {
+  //   const name = discriminator.literalValue.split('.')[0];
+  //   const item: XImports = {
+  //     path: `./${name}`,
+  //     name,
+  //   };
+  //   addImport(schema.vendorExtensions, item);
+  // });
 
   if (schema.discriminator) {
     // This means there will be a plural version of this.

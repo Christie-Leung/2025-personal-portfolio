@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build:common": "pnpm --filter common run build",
+    "build:openapi": "pnpm --filter openapi-generator run build",
     "dev:frontend": "pnpm --filter frontend run dev",
     "dev:backend": "pnpm --filter backend run dev",
     "build:frontend": "pnpm --filter frontend run build",

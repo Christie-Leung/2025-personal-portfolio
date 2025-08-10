@@ -2,14 +2,14 @@ import type { TableBlock } from "@/generated/models/TableBlock";
 
 const Table = ({ headers, rows }: TableBlock) => {
   return (
-    <div className="overflow-x-auto">
+    <div className="w-full overflow-x-auto mb-10">
       <table className="w-full border-collapse rounded-xl">
-        <thead>
-          <tr className="bg-zinc-900/60">
+        <thead className="border-b border-border">
+          <tr>
             {headers.map((h, i) => (
               <th
                 key={i}
-                className="px-3 py-2 text-left text-xs font-medium uppercase tracking-wide text-zinc-300"
+                className="px-3 py-2 text-left text-xs font-medium uppercase tracking-wide text-primary"
               >
                 {h}
               </th>
@@ -18,9 +18,9 @@ const Table = ({ headers, rows }: TableBlock) => {
         </thead>
         <tbody>
           {rows.map((r, ri) => (
-            <tr key={ri} className="odd:bg-zinc-900/20">
+            <tr key={ri} className="not-last:border-b not-last:border-border/30">
               {r.map((cell, ci) => (
-                <td key={ci} className="px-3 py-2 text-sm text-zinc-200">
+                <td key={ci} className="px-3 py-2 text-sm text-primary">
                   {cell}
                 </td>
               ))}

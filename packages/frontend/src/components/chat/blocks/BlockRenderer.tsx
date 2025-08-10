@@ -11,17 +11,17 @@ const BlockRenderer = ({
 }: BlockRendererProps) => {
   switch (block.type) {
     case "paragraph":
-      return <p className="text-sm leading-7 text-zinc-200">{block.text}</p>;
+      return <p className="text-base leading-7 text-primary pb-4">{block.text}</p>;
 
     case "heading":
       return <Heading {...block} />;
 
     case "divider":
-      return <hr className="border-zinc-700/60" />;
+      return <hr className="border-border my-6" />;
 
     case "code":
       return (
-        <pre className="overflow-x-auto rounded-xl bg-zinc-900 p-4 text-[13px] leading-6">
+        <pre className="overflow-x-auto rounded-xl bg-background p-4 text-[13px] leading-6">
           <code className={block.language ? `language-${block.language}` : undefined}>
             {block.content}
           </code>
@@ -31,6 +31,16 @@ const BlockRenderer = ({
     case "table":
       return <Table {...block} />;
 
+    case "list": {
+      const b = block as { type: "list"; ordered?: boolean; items: string[] };
+      const ListTag = b.ordered ? "ol" : "ul";
+      return (
+        <ListTag className={b.ordered ? "list-decimal pl-6 text-sm space-y-2" : "list-disc pl-6 text-sm space-y-2"}>
+          {b.items.map((txt, i) => <li key={i} className="text-primary">{txt}</li>)}
+        </ListTag>
+      );
+    }
+
     case "image":
       return (
         <figure className="flex flex-col items-center gap-2">
@@ -38,10 +48,10 @@ const BlockRenderer = ({
           <img
             src={block.url}
             alt={block.alt ?? ""}
-            className="max-w-full rounded-xl border border-zinc-800"
+            className="max-w-full rounded-xl border border-border"
           />
           {block.alt ? (
-            <figcaption className="text-xs text-zinc-400">{block.alt}</figcaption>
+            <figcaption className="text-xs text-secondary">{block.alt}</figcaption>
           ) : null}
         </figure>
       );
