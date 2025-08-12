@@ -1,7 +1,9 @@
-import { Chatbox } from "@/components";
 import { Outlet } from "react-router-dom";
+import { Chatbox } from "~/components";
+import { getChatIdParam } from "~/hooks/params.hooks";
 
 const ChatLayout = () => {
+  const chatId = getChatIdParam();
 
   return (
     <div className="relative w-full max-h-screen h-full flex flex-col items-center">
@@ -13,7 +15,7 @@ const ChatLayout = () => {
       </div>
       <div className="sticky bottom-6 left-0 w-full flex items-center justify-center p-4">
         <div className="w-full md:w-[65vw] lg:w-1/2">
-          <Chatbox />
+          <Chatbox chatId={chatId} />
         </div>
       </div>
     </div>

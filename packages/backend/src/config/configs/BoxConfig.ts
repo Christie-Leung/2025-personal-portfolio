@@ -11,7 +11,7 @@ export const boxConfig = {
     : `https://api.${domain}`,
   baseUrls: {
     frontend: isLocal
-      ? 'http://localhost:8080'
+      ? 'http://localhost:8000'
       : `https://christie.${domain}`
   },
   isLocal,

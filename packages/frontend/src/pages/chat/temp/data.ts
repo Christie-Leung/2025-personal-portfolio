@@ -1,15 +1,16 @@
-import type { ChatMessage } from "@/generated/models/ChatMessage";
-import type { Company } from "@/generated/models/Company";
-import type { Conversation } from "@/generated/models/Conversation";
-import type { Experience } from "@/generated/models/Experience";
-import type { MessageBlock } from "@/generated/models/MessageBlock";
-import { MessageRole } from "@/generated/models/MessageRole";
-import { WorkLocationType } from "@/generated/models/WorkLocationType";
+
+import { ChatId } from "@2025-personal-portfolio/common/src/ids";
 import { ChatMessageId } from "@2025-personal-portfolio/common/src/ids/ChatMessageId";
 import { CompanyId } from "@2025-personal-portfolio/common/src/ids/CompanyId";
-import { ConversationId } from "@2025-personal-portfolio/common/src/ids/ConversationId";
 import { ExperienceBulletId } from "@2025-personal-portfolio/common/src/ids/ExperienceBulletId";
 import { WorkExperienceId } from "@2025-personal-portfolio/common/src/ids/WorkExperienceId";
+import { Chat } from "~/generated/models/Chat";
+import { ChatMessage } from "~/generated/models/ChatMessage";
+import { Company } from "~/generated/models/Company";
+import { Experience } from "~/generated/models/Experience";
+import { MessageBlock } from "~/generated/models/MessageBlock";
+import { MessageRole } from "~/generated/models/MessageRole";
+import { WorkLocationType } from "~/generated/models/WorkLocationType";
 
 const companies: Company[] = [
   {
@@ -361,7 +362,7 @@ const buildConversation = ({
   experiences,
   userPrompt = "Return her work experiences from newest to oldest.",
   conversationTitle = "Her work experiences",
-  conversationId = new ConversationId(),
+  chatId = new ChatId(),
   userMsgId = new ChatMessageId(),
   sysMsgId = new ChatMessageId()
 }: {
@@ -369,10 +370,10 @@ const buildConversation = ({
   experiences: Experience[];
   userPrompt?: string;
   conversationTitle?: string;
-  conversationId?: ConversationId ;
+  chatId?: ChatId;
   userMsgId?: ChatMessageId;
   sysMsgId?: ChatMessageId;
-}): Conversation => {
+}): Chat => {
   const createdAt = new Date();
 
   experiences = experiences.sort((a, b) => {
@@ -443,7 +444,7 @@ const buildConversation = ({
 
   const userMsg: ChatMessage = {
     id: userMsgId,
-    conversationId,
+    chatId,
     role: MessageRole.User,
     messageIndex: 0,
     content: {
@@ -457,7 +458,7 @@ const buildConversation = ({
 
   const systemMsg: ChatMessage = {
     id: sysMsgId,
-    conversationId,
+    chatId,
     role: MessageRole.System,
     messageIndex: 1,
     content: { blocks: systemBlocks },
@@ -466,7 +467,7 @@ const buildConversation = ({
   };
 
   return {
-    id: conversationId,
+    id: chatId,
     title: conversationTitle,
     messages: [userMsg, systemMsg],
     createdAt,

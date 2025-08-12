@@ -1,12 +1,12 @@
-import { UrlButton } from "@/components"
-import { BlockRenderer } from "@/components/chat/blocks"
-import Tag from "@/components/Tag"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/components/ui/dialog"
-import type { MessageBlock } from "@/generated/models/MessageBlock"
-import { Project } from "@/generated/models/Project"
-import { DialogClose, DialogDescription } from "@radix-ui/react-dialog"
+
 import type { Key } from "react"
+import { UrlButton } from "~/components"
+import { BlockRenderer } from "~/components/chat/blocks"
+import Tag from "~/components/Tag"
+import { Button } from "~/components/ui/button"
+import { DialogHeader, DialogFooter, Dialog, DialogTrigger, DialogClose, DialogContent, DialogDescription, DialogTitle } from "~/components/ui/dialog"
+import { MessageBlock } from "~/generated/models/MessageBlock"
+import { Project } from "~/generated/models/Project"
 
 type ProjectProps = {
   project: Project
@@ -30,7 +30,7 @@ const ProjectApp = ({
       >
         <DialogHeader>
           <div className="flex flex-row justify-between items-center">
-            <h3 className="font-normal w-fit">{project.name}</h3>
+            <DialogTitle className="font-normal w-fit">{project.name}</DialogTitle>
             <div className="flex flex-row space-x-2 w-fit">
              {project.link.map((link, index) => (
                 <UrlButton 
@@ -49,11 +49,10 @@ const ProjectApp = ({
               ))}
           </div>
         </DialogHeader>
-        <DialogDescription>
-          {project.description.map((desc: MessageBlock, index: number) => (
-            <BlockRenderer key={index} block={desc} />
-          ))}
-        </DialogDescription>
+        <DialogDescription />
+        {project.description.blocks.map((desc: MessageBlock, index: number) => (
+          <BlockRenderer key={index} block={desc} />
+        ))}
         <DialogFooter>
           <DialogClose asChild className="relative">
             <Button variant="outline">Close</Button>

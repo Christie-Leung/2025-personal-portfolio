@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json.schemastore.org/eslintrc.json",
+    "extends": [
+        "../../.eslintrc.json"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "rules": {
+      "react/react-in-jsx-scope": "off",
+      "react/require-default-props": "off",
+      "jsx-a11y/label-has-associated-control": "off",
+      "jsx-a11y/control-has-associated-label": "off",
+      "react/jsx-props-no-spreading": "off"
+    }
+}

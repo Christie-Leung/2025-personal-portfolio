@@ -12,12 +12,23 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "~": path.resolve(__dirname, "./src"),
     },
   },
   server: {
-    port: parseInt(process.env.PORT ?? '3000', 10),
+    port: parseInt(process.env.PORT ?? '8000', 10),
   },
   build: {
-    assetsInlineLimit: 0,
-  }
+    target: 'esnext',
+    assetsInlineLimit: 0
+  },
+  esbuild: {
+    target: 'esnext',
+    supported: {
+      arrow: true,
+      'async-await': true,
+      bigint: true,
+      'nullish-coalescing': true,
+    },
+  },
 })

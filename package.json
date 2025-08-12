@@ -9,6 +9,7 @@
     "build:openapi": "pnpm --filter openapi-generator run build",
     "dev:frontend": "pnpm --filter frontend run dev",
     "dev:backend": "pnpm --filter backend run dev",
+    "dev:discord": "pnpm --filter discord run dev",
     "build:frontend": "pnpm --filter frontend run build",
     "lint:frontend": "eslint -c packages/frontend/.eslintrc.lint.json packages/frontend/src/ --ext .ts,.tsx --fix && stylelint -c packages/frontend/.stylelintrc.json packages/frontend/src/**/*.css --fix",
     "preview:frontend": "pnpm --filter frontend run preview"

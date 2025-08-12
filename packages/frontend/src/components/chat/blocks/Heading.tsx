@@ -1,4 +1,4 @@
-import type { HeadingBlock } from "@/generated/models/HeadingBlock";
+import type { HeadingBlock } from "~/generated/models/HeadingBlock";
 import type { JSX } from "react";
 
 const Heading = ({ level, text }: HeadingBlock) => {

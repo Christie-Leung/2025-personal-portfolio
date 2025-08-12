@@ -1,4 +1,5 @@
-{{#ifEquals generatorType 'client'}}import { useHttp } from '@2025-personal-portfolio/frontend-core';{{/ifEquals}}
+{{#ifEquals generatorType 'frontend'}}import { useHttp } from '~/http';{{/ifEquals}}
+{{#ifEquals generatorType 'client'}}import { useHttp } from '@2025-personal-portfolio/frontend-common';{{/ifEquals}}
 
 {{#each groups}}
 import { {{#each operations}}{{name}}, {{#if hasArgs}}{{titleCase name}}Args{{#unless @last}}, {{/unless}}{{/if}}{{/each}} } from './{{name}}.client';

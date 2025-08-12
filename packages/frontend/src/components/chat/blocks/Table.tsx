@@ -1,4 +1,4 @@
-import type { TableBlock } from "@/generated/models/TableBlock";
+import type { TableBlock } from "~/generated/models/TableBlock";
 
 const Table = ({ headers, rows }: TableBlock) => {
   return (

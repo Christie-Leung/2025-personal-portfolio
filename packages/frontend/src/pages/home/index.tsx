@@ -1,6 +1,8 @@
-import { Chatbox } from "@/components";
-import { Button } from "@/components/ui/button";
+
+import { ChatId } from "@2025-personal-portfolio/common/src/ids";
 import { useNavigate } from "react-router-dom";
+import { Chatbox } from "~/components";
+import { Button } from "~/components/ui/button";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-        <Chatbox />
+        <Chatbox chatId={new ChatId()} />
       </div>
     </div>
   );

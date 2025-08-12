@@ -1,4 +1,4 @@
-import { Search } from "@/components";
+import { Search } from "~/components";
 import ProjectApp from "./components/ProjectApp";
 import { projects } from "./temp/data";
 

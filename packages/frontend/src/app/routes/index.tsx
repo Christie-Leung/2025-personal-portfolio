@@ -2,10 +2,13 @@ import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import Home from "../../pages/home";
 import NotFound from "../../pages/notfound";
 import HomeLayout from "../layouts/HomeLayout";
-import ProjectsPage from "@/pages/projects";
 import { Suspense } from "react";
 import ChatLayout from "../layouts/ChatLayout";
-import ChatPage from "@/pages/chat";
+import React from "react";
+
+const ProjectsPage = React.lazy(() => import("~/pages/projects"));
+const ChatPage = React.lazy(() => import("~/pages/chat"));
+
 
 
 const routes: RouteObject[] = [
@@ -27,7 +30,7 @@ const routes: RouteObject[] = [
         element: <ChatLayout />,
         children: [
           {
-            path: "/c/:id",
+            path: "/c/:chatId",
             element: (
               <Suspense>
                 <ChatPage />

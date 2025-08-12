@@ -1,4 +1,5 @@
-{{#ifEquals generatorType 'client'}}import { http, HttpResult } from '@2025-personal-portfolio/frontend-core';{{/ifEquals}}
+{{#ifEquals generatorType 'frontend'}}import { http, HttpResult } from '~/http';{{/ifEquals}}
+{{#ifEquals generatorType 'client'}}import { http, HttpResult } from '@2025-personal-portfolio/frontend-common';{{/ifEquals}}
 
 {{#each groups}}
 {{#ifc vendorExtensions 'x-ts-imports'}}

@@ -1,6 +1,9 @@
-import { $log } from '@tsed/common';
+import "reflect-metadata"
+import { $log, InjectorService } from '@tsed/common';
 import { PlatformExpress } from '@tsed/platform-express';
 import { Server } from './Server';
+import { ChatsHandler } from './generated/apis/chats/Chats.handler';
+
 
 // Bootstrap application
 async function bootstrap() {
@@ -8,6 +11,9 @@ async function bootstrap() {
 
     $log.info('Starting server application');
     const platform = await PlatformExpress.bootstrap(Server);
+    const injector = (platform as any).injector as InjectorService;
+    const bound = injector.get(ChatsHandler);
+    console.log("ChatsHandler bound?", Boolean(bound), bound?.constructor?.name);
     await platform.listen();
 
     process.on('SIGINT', () => {

@@ -14,18 +14,109 @@
     }
   ],
   "paths": {
-    "/": {
-      "get": {
-        "summary": "Get root",
-        "tags": ["Root"],
-        "operationId": "getRoot",
-        "security": [],
+    "/chats": {
+      "post": {
+        "tags": ["chats"],
+        "summary": "Create a new chat and its Discord thread",
+        "operationId": "createChat",
+        "responses": {
+          "201": {
+            "description": "Chat created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CreateChatResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chats/{chatId}/messages": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ChatIdPathParam"
+        }
+      ],
+      "post": {
+        "tags": ["chats"],
+        "summary": "Post a user message to the Discord thread via the bot",
+        "operationId": "postMessage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PostMessageRequest" }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Successful response"
-          },
-          "400": {
-            "description": "Bad request"
+            "description": "Message forwarded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": { "type": "boolean" },
+                    "messageId": { "type": "string", "format": "uuid", "description": "The ID of the message posted in Discord" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chats/{chatId}/stream": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ChatIdPathParam"
+        }
+      ],
+      "get": {
+        "tags": ["chats"],
+        "summary": "Server-Sent Events stream of Discord replies for this chat",
+        "operationId": "streamChat",
+        "x-ts-context": "Context",
+        "responses": {
+          "200": {
+            "description": "SSE stream; each event's data is a JSON-encoded StreamEvent.",
+            "content": {
+              "text/event-stream": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chats/discord/events": {
+      "post": {
+        "tags": ["chats"],
+        "summary": "Webhook called by the Discord service when a user posts in the thread",
+        "operationId": "discordEvents",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DiscordEventPayload" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event accepted or ignored",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": { "type": "boolean" },
+                    "ignored": { "type": "boolean" }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -33,6 +124,42 @@
   },
   "components": {
     "schemas": {
+      "CreateChatResponse": {
+        "type": "object",
+        "required": ["chatId", "threadId"],
+        "properties": {
+          "chatId": { "$ref": "#/components/schemas/ChatId" },
+          "threadId": { "type": "string", "description": "Discord thread id created for this chat" }
+        }
+      },
+      "PostMessageRequest": {
+        "type": "object",
+        "required": ["content"],
+        "properties": {
+          "content": { "type": "string", "minLength": 1 }
+        }
+      },
+      "DiscordEventPayload": {
+        "type": "object",
+        "required": ["chatId", "threadId", "messageId", "authorId", "authorUsername", "content", "createdAt"],
+        "properties": {
+          "chatId": { "type": "string", "format": "uuid" },
+          "threadId": { "type": "string" },
+          "messageId": { "type": "string" },
+          "authorId": { "type": "string" },
+          "authorUsername": { "type": "string" },
+          "content": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "StreamEvent": {
+        "type": "object",
+        "required": ["isSystem", "data"],
+        "properties": {
+          "isSystem": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/MessageBlocks" }
+        }
+      },
       "Company": {
         "type": "object",
         "properties": {
@@ -283,11 +410,11 @@
         "enum": ["LinkedIn", "GitHub", "Instagram", "Website"],
         "description": "The type of URL, either a website or a social media link"
       },
-      "Conversation": {
+      "Chat": {
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/ConversationId"
+            "$ref": "#/components/schemas/ChatId"
           },
           "title": {
             "type": "string",
@@ -321,8 +448,8 @@
           "id": {
             "$ref": "#/components/schemas/ChatMessageId"
           },
-          "conversationId": {
-            "$ref": "#/components/schemas/ConversationId"
+          "chatId": {
+            "$ref": "#/components/schemas/ChatId"
           },
           "role": {
             "$ref": "#/components/schemas/MessageRole"
@@ -348,7 +475,7 @@
             "example": "2023-10-10T01:55:28Z"
           }
         },
-        "required": ["id", "conversationId", "role", "messageIndex", "content", "createdAt", "updatedAt"]
+        "required": ["id", "chatId", "role", "messageIndex", "content", "createdAt", "updatedAt"]
       },
       "MessageRole": {
         "type": "string",
@@ -514,11 +641,11 @@
         "description": "The unique identifier for the project review",
         "example": "PR123e4567-e89b-12d3-a456-426614174001"
       },
-      "ConversationId": {
+      "ChatId": {
         "type": "object",
-        "x-ts-type": "@2025-personal-portfolio/common/dist/ids/ConversationId.ts",
-        "description": "The unique identifier for the conversation",
-        "example": "CS123e4567-e89b-12d3-a456-426614174000"
+        "x-ts-type": "@2025-personal-portfolio/common/dist/ids/ChatId.ts",
+        "description": "The unique identifier for the chat",
+        "example": "CH123e4567-e89b-12d3-a456-426614174000"
       },
       "ChatMessageId": {
         "type": "object",
@@ -543,6 +670,22 @@
         "x-ts-type": "@2025-personal-portfolio/common/dist/ids/CompanyId.ts",
         "description": "The unique identifier for the company",
         "example": "CP123e4567-e89b-12d3-a456-426614174000"
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "ChatIdPathParam": {
+        "name": "chatId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/ChatId"
+        }
       }
     }
   }

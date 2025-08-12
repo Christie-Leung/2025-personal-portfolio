@@ -42,7 +42,6 @@
     }
   },
   "copy": [
-    "src/views",
     "src/handlers/public/favicon/favicon.ico",
   ],
   "include": [

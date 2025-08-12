@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@2025-personal-portfolio/common": "workspace:^",
+    "@2025-personal-portfolio/discord": "workspace:^",
     "@tsed/ajv": "^8.15.0",
     "@tsed/common": "^8.15.0",
     "@tsed/core": "^8.15.0",
@@ -33,19 +34,37 @@
     "@tsed/platform-cache": "^8.15.0",
     "@tsed/platform-exceptions": "^8.15.0",
     "@tsed/platform-express": "^8.15.0",
+    "@tsed/platform-params": "^8.15.1",
+    "@tsed/platform-response-filter": "^8.15.1",
     "@tsed/schema": "^8.15.0",
     "@tsed/swagger": "^8.15.0",
     "@types/method-override": "^3.0.0",
     "barrelsby": "^2.8.1",
     "cache-manager": "5.7.6",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "discord.js": "^14.21.0",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
     "method-override": "^3.0.0",
-    "typeorm": "^0.3.25"
+    "node-fetch": "^3.3.2",
+    "typeorm": "^0.3.25",
+    "uuid": "^11.1.0"
   },
   "tsed": {
     "convention": "conv_default",
     "architecture": "arc_default",
     "packageManager": "pnpm"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2"
   }
 }

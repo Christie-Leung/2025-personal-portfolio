@@ -1,0 +1,26 @@
+{
+  "name": "@2025-personal-portfolio/frontend-common",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "build": "pnpm run clean && pnpm run generate",
+    "clean": "rimraf dist/ common/ src/generated",
+    "dev": "pnpm run generate && vite",
+    "generate": "rimraf src/generated && cross-env OPEN_API_GENERATOR=frontend openapi-generator-plus -o src/generated -g ../openapi-generator/dist ../specs/resources/openapi.json",
+    "lint": "pnpm -w run lint:frontend-common"
+  },
+  "dependencies": {
+    "@2025-personal-portfolio/common": "workspace:^",
+    "loglevel": "^1.9.2",
+    "loglevel-plugin-prefix": "^0.8.4",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18"
+  }
+}

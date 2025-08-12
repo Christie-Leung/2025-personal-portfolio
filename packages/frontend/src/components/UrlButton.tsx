@@ -1,9 +1,10 @@
-import type { SocialUrl } from "@/generated/models/SocialUrl";
-import { Button } from "./ui/button";
-import { UrlType } from "@/generated/models/UrlType";
 import { GlobeIcon } from "lucide-react";
-import { LuGithub, LuInstagram, LuLinkedin } from "react-icons/lu";
-import { cn } from "@/lib/utils";
+import { LuGithub, LuLinkedin, LuInstagram } from "react-icons/lu";
+import { SocialUrl } from "~/generated/models/SocialUrl";
+import { UrlType } from "~/generated/models/UrlType";
+import { cn } from "~/lib/utils";
+import { Button } from "./ui/button";
+
 
 type UrlButtonProps = React.ComponentProps<typeof Button> & {
   socialUrl: SocialUrl;

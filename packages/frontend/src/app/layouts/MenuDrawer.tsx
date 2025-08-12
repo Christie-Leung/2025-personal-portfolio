@@ -3,8 +3,9 @@ import { Button } from "../../components/ui/button";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuItem, useSidebar } from "../../components/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../components/ui/tooltip";
 import { LayoutGridIcon, SearchIcon, SquarePenIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import { cn } from "~/lib/utils";
+import { ChatId } from "@2025-personal-portfolio/common/src/ids";
 
 const MenuDrawer = () => {
   const { open, setOpen } = useSidebar();
@@ -41,12 +42,12 @@ const MenuDrawer = () => {
     </SidebarMenuItem>
   );
 
-  const chatButton = (chat: string, identifier: string) => (
+  const chatButton = (chat: string, id: ChatId) => (
     <SidebarMenuItem>
       <Button 
-        variant={isActive(identifier) ? "secondary" : "ghost"}
+        variant={isActive(id.toString()) ? "secondary" : "ghost"}
         className="w-full flex justify-start items-center p-2"
-        onClick={() => navigate(`/c/${identifier}`)}>
+        onClick={() => navigate(`/c/${id}`)}>
         {chat}
       </Button>
     </SidebarMenuItem>
@@ -89,9 +90,7 @@ const MenuDrawer = () => {
             <SidebarGroupLabel className="text-sm">Chats</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                <SidebarMenuItem>
-                  {chatButton("My Work Experiences", "CA1843ef43-89a8-8e31-ac30-121745ca2a8d")}
-                </SidebarMenuItem>
+                {chatButton("My Work Experiences", new ChatId())}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

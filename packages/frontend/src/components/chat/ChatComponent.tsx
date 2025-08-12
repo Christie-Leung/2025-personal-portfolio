@@ -1,6 +1,7 @@
-import type { ChatMessage } from "@/generated/models/ChatMessage";
-import { MessageRole } from "@/generated/models/MessageRole";
-import { cn } from "@/lib/utils";
+
+import { ChatMessage } from "~/generated/models/ChatMessage";
+import { MessageRole } from "~/generated/models/MessageRole";
+import { cn } from "~/lib/utils";
 import { BlockRenderer } from "./blocks";
 
 type ChatComponentProps = {

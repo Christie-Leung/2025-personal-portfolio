@@ -1,4 +1,5 @@
-import type { MessageBlock } from "@/generated/models/MessageBlock";
+
+import { MessageBlock } from "~/generated/models/MessageBlock";
 import Heading from "./Heading";
 import Table from "./Table";
 
@@ -11,7 +12,7 @@ const BlockRenderer = ({
 }: BlockRendererProps) => {
   switch (block.type) {
     case "paragraph":
-      return <p className="text-base leading-7 text-primary pb-4">{block.text}</p>;
+      return <span className="text-base leading-7 text-primary pb-4">{block.text}</span>;
 
     case "heading":
       return <Heading {...block} />;

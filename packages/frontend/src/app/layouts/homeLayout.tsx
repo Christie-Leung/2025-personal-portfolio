@@ -1,10 +1,11 @@
 
-import { Button } from "@/components/ui/button";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { useTheme } from "@/provider";
+
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Outlet } from "react-router-dom";
 import MenuDrawer from "./MenuDrawer";
+import { useTheme } from "~/provider";
+import { SidebarProvider } from "~/components/ui/sidebar";
+import { Button } from "~/components/ui/button";
 
 const HomeLayout = () => {
   const { theme, setTheme } = useTheme();

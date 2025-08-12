@@ -33,7 +33,7 @@ const templates = (_options: CodegenOptionsTypeScript) => {
       await generateApis(options)(outputPath, { ...doc }, hbs, rootContext);
     }
 
-    if (generatorType === 'client') {
+    if (generatorType === 'client' || generatorType === 'frontend') {
       await renderModels(options)(outputPath, { ...doc }, hbs, rootContext);
       await generateClients(options)(outputPath, { ...doc }, hbs, rootContext);
     }

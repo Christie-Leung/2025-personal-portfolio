@@ -1,8 +1,12 @@
 {
   "directory": [
+    "./src/handlers",
+    "./src/services",
+    "./src/repositories",
+    "./src/protocols",
+    "./src/protocols/entities"
   ],
   "exclude": [
-    "./src/repositories/datasources/*",
     "__mock__",
     "__mocks__",
     ".spec.ts"

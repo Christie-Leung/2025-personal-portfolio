@@ -1,4 +1,4 @@
-import { cn, getDarkerShade, stringToPastelColor } from "@/lib/utils";
+import { cn, getDarkerShade, stringToPastelColor } from "~/lib/utils";
 import { Badge } from "./ui/badge";
 
 

@@ -2,7 +2,7 @@ import { CodegenObjectSchema } from '@openapi-generator-plus/types/src/types';
 import { CGCodegenNamedSchema, CLI, XImports } from '~/types';
 import { addImport } from '~/utils/vendorExtensions';
 import { processExtraAnnotations, processXTsType } from './actions';
-import { isClient } from '~/utils/generatorType';
+import { isClient, isFrontEnd } from '~/utils/generatorType';
 
 /**
  * Processes all the vendor extensions, ie x-ts-*
@@ -21,7 +21,7 @@ const process = (
   // This is hardcoded type, which means we should ignore it
   // However, it also means we need to import it, so add it to the list of imports
   if (schema.vendorExtensions?.['x-ts-type']) {
-    if (isClient()) {
+    if (isClient() || isFrontEnd()) {
       schema.vendorExtensions['x-ts-type'] = schema.vendorExtensions[
         'x-ts-type'
       ].replace('@2025-personal-portfolio/common/dist', '@2025-personal-portfolio/common/src');
@@ -35,7 +35,7 @@ const process = (
       name: schema.name
     };
 
-    // addImport(schema.vendorExtensions, item);
+    addImport(schema.vendorExtensions, item);
     if (child) {
       addImport(child.vendorExtensions, item);
     }
@@ -54,14 +54,27 @@ const process = (
     });
   }
 
-  // schema?.discriminatorValues?.forEach((discriminator) => {
-  //   const name = discriminator.literalValue.split('.')[0];
-  //   const item: XImports = {
-  //     path: `./${name}`,
-  //     name,
-  //   };
-  //   addImport(schema.vendorExtensions, item);
-  // });
+  if (schema.discriminator) {
+    // Use the mapping directly to get the child schema name
+    const mapping = schema.discriminator.mappings;
+
+    for (const literalValue in mapping) {
+      if (Object.prototype.hasOwnProperty.call(mapping, literalValue)) {
+        // The schema name is the last part of the $ref path
+        const refPath = mapping[literalValue];
+        const name = refPath.split('/').pop();
+
+        // Ensure the name exists before adding the import
+        if (name) {
+          const item: XImports = {
+            path: `./${name}`,
+            name,
+          };
+          addImport(schema.vendorExtensions, item);
+        }
+      }
+    }
+  }
 
   if (schema.discriminator) {
     // This means there will be a plural version of this.
