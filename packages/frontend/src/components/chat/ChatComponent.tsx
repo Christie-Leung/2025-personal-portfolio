@@ -18,7 +18,7 @@ const ChatComponent = ({
       "justify-start": chatMessage.role === MessageRole.System
     })}>
       <div className={cn("py-2 px-4 rounded-lg", {
-        "bg-primary-foreground w-fit max-w-[48vw] lg:max-w-[28vw]": chatMessage.role === MessageRole.User,
+        "bg-primary-foreground w-fit max-w-[72vw] md:max-w-[48vw] lg:max-w-[28vw]": chatMessage.role === MessageRole.User,
         "w-full": chatMessage.role === MessageRole.System,
       })}>
         {chatMessage.content.blocks.map((block, index) => (

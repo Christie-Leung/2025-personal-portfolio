@@ -9,6 +9,7 @@ import { PostMessage200Response } from "~/generated/models/PostMessage200Respons
 import { PostMessageRequest } from "~/generated/models/PostMessageRequest";
 import { ChatSseService } from "~/services/ChatSseService";
 import { DiscordBridgeService } from "~/services/DiscordBridgeService";
+import { markdownToBlocks } from "~/utils/markdownToBlocks";
 
 @Injectable({
   provide: ChatsHandler
@@ -18,8 +19,6 @@ export class ChatsHandlerImpl implements ChatsHandler {
   private chatToThread = new Map<ChatId, string>();
   private threadToChat = new Map<string, ChatId>();
 
-    private baseUrl = process.env.DISCORD_BRIDGE_URL || "http://localhost:4001";
-
 
   @Inject()
   private bridge: DiscordBridgeService;
@@ -27,8 +26,8 @@ export class ChatsHandlerImpl implements ChatsHandler {
   @Inject()
   private sse: ChatSseService;
 
+
   async createChat(): Promise<CreateChatResponse> {
-    console.log("createChat");
     const chatId = new ChatId();
     const { threadId } = await this.bridge.createThread(chatId);
     this.chatToThread.set(chatId, threadId);
@@ -37,45 +36,72 @@ export class ChatsHandlerImpl implements ChatsHandler {
   }
 
   async discordEvents(payload: DiscordEventPayload): Promise<DiscordEvents200Response> {
-    console.log("discordEvents", payload);
-    const chatId = (payload as any).chatId || this.threadToChat.get((payload as any).threadId);
-    if (!chatId) return { ignored: true } as any;
-    this.sse.push(chatId, { type: "discord_message", data: payload } as any);
+    let chatId: ChatId | undefined;
+
+    if (payload.chatId) {
+      chatId = new ChatId(payload.chatId);
+    }
+    
+    if (!chatId && payload.threadId) {
+      chatId = this.threadToChat.get(payload.threadId);
+    }
+    
+    if (!chatId) {
+      console.log("ChatId not found for payload:", payload);
+      return { ignored: true } as any;
+    }
+
+    this.sse.push(chatId, {
+      isSystem: true,
+      data: markdownToBlocks(payload.content)
+    }, true);
+
     return { ok: true } as any;
   }
 
   async postMessage(chatId: ChatId, body: PostMessageRequest): Promise<PostMessage200Response> {
-    console.log("postMessage", chatId, body.content);
-    const threadId = this.chatToThread.get(chatId);
-    if (!threadId) throw new Error("Unknown chatId");
-    console.log("posted");
-        const resp = await fetch(`${this.baseUrl}/threads/${threadId}/messages`, {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ content: body.content })
-        });
-        if (!resp.ok) throw new Error(`Discord bridge error ${resp.status}`);
+    let id = this.chatToThread.get(chatId);
+    if (!id) {
+      const { threadId } = await this.bridge.createThread(chatId);
+      id = threadId;
+    }
+    await this.bridge.postMessage(id, body.content);
     return { ok: true } as any; // matches PostMessage200Response shape
   }
 
-  streamChat(ctx: Context, chatId: ChatId): Promise<String> {
-    console.log("streamChat", chatId);
-    const res = ctx.response; // PlatformResponse
+  async streamChat(ctx: Context, chatId: ChatId): Promise<string> {
+    const pres = ctx.response as any;
+
+    const res: any =
+    pres.getResponse?.() ?? pres.raw ?? pres.res ?? ctx.response;
+
     // SSE headers
     res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Cache-Control", "no-cache, no-transform");
     res.setHeader("Connection", "keep-alive");
-    (res as any).flushHeaders?.();
+    res.setHeader("X-Accel-Buffering", "no");
+    res.setHeader("Access-Control-Allow-Origin", process.env.ENVIRONMENT === 'local' ? process.env.FRONTEND_URL : "https://christie.murphyshome.net");
+    res.flushHeaders?.();
 
-    // Register client
-    this.sse.addClient(chatId, (res as any).getResponse());
-    (res as any).getResponse().write(`data: ${JSON.stringify({ type: "system", data: { message: "connected" } })}\n\n`);
+    res.write(`data: ${JSON.stringify({ message: "Connection established." })}\n\n`);
 
-    // When client disconnects
-    (res as any).getRequest().on("close", () => {
-      this.sse.removeClient(chatId, (res as any).getResponse());
-    });
+    this.sse.addClient(chatId, res);
 
-    return Promise.resolve("");
+    // keep-alive to prevent proxies from closing idle connections
+    const ping = setInterval(() => {
+      try { 
+        res.write(`: ping ${Date.now()}\n\n`);
+      } catch {}
+    }, 15000);
+
+    // Resolve only when the client disconnects
+    await new Promise<void>(resolve => res.on("close", resolve));
+
+    clearInterval(ping);
+    this.sse.removeClient(chatId, res);
+
+    // return a dummy string just to satisfy the generated method signature
+    return "";
   }
+
 }

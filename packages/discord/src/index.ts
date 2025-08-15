@@ -7,7 +7,7 @@ import { setChannelForGuild } from "./store/channelStore";
 dotenv.config();
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN!;
-const BACKEND_WEBHOOK = process.env.BACKEND_WEBHOOK_URL || "http://localhost:3000/api/chats/discord/events";
+const BACKEND_WEBHOOK = process.env.BACKEND_WEBHOOK_URL || "http://localhost:3000/chats/discord/events";
 const HTTP_PORT = Number(process.env.PORT || 4001);
 
 const client = new Client({

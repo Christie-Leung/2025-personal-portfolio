@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import * as dotenv from 'dotenv';
+import config from "@2025-personal-portfolio/frontend-common/src/config";
 
 dotenv.config({ path: '.env.local' });
 

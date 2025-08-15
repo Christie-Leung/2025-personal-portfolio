@@ -1,33 +1,59 @@
 import { ChatId } from "@2025-personal-portfolio/common/dist/ids";
-import { Injectable, Service } from "@tsed/di";
+import { Service } from "@tsed/di";
+import EventEmitter from "events";
 import type { Response } from "express";
 import { StreamEvent } from "~/generated/models/StreamEvent";
 
 
+type SseClient = {
+    res: Response;
+    lastMessageId: number;
+};
+
 @Service()
-export class ChatSseService {
-  private clients: Map<ChatId, Set<Response>> = new Map();
+export class ChatSseService extends EventEmitter{
+  private clients: Map<string, SseClient> = new Map();
 
-  addClient(chatId: ChatId, res: Response) {
-    if (!this.clients.has(chatId)) this.clients.set(chatId, new Set());
-    this.clients.get(chatId)!.add(res);
-  }
-
-  removeClient(chatId: ChatId, res: Response) {
-    const set = this.clients.get(chatId);
-    if (!set) return;
-    set.delete(res);
-    if (!set.size) this.clients.delete(chatId);
-  }
-
-  push(chatId: ChatId, event: StreamEvent) {
-    const set = this.clients.get(chatId);
-    if (!set) return;
-    const data = `data: ${JSON.stringify(event)}\n\n`;
-    for (const res of set) {
+  public addClient(chatId: ChatId, res: Response) {
+    if (this.clients.has(chatId.toString())) {
+      console.log(`Closing existing SSE connection for chatId ${chatId} before adding a new one.`);
+      const existingClient = this.clients.get(chatId.toString());
       try {
-        res.write(data);
-      } catch {}
+        existingClient?.res.end(); // Or send an error event and end the connection
+      } catch (e) {
+        // The client might already be gone, so this is a best-effort.
+      }
     }
+
+    const client = { res, lastMessageId: 0 };
+    this.clients.set(chatId.toString(), client);
+  }
+
+  public removeClient(chatId: ChatId, res: Response) {
+    const client = this.clients.get(chatId.toString());
+    if (client && client.res === res) {
+      this.clients.delete(chatId.toString());
+    }
+  }
+
+  public push(chatId: ChatId, event: StreamEvent, isDiscord?: boolean) {
+    const client = this.clients.get(chatId.toString());
+    let data = `data: ${JSON.stringify(event.data)}\n\n`
+    if (isDiscord) {
+      data = `event: discord_message\ndata: ${JSON.stringify(event.data)}\n\n`;
+    }
+    if (client) {
+      try {
+        client.res.write(data);
+      } catch (error) {
+        console.error(`Error writing to SSE stream for chatId ${chatId}:`, error);
+        // Consider removing this client if writing fails
+        this.removeClient(chatId, client.res);
+      }
+    }
+  }
+
+  public hasClients(chatId: ChatId): boolean {
+    return this.clients.has(chatId.toString());
   }
 }

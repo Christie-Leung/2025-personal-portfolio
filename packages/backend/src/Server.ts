@@ -18,10 +18,8 @@ import * as generatedControllers from '~/generated/apis';
 import { getRequiredEnv } from '~/config/configs/utils';
 import { PaginationResponseFilter } from '~/core/page/PaginationResponseFilter';
 import '~/handlers';
-import { Application } from 'express';
-import { ChatsHandler } from './generated/apis/chats/Chats.handler';
-import { ChatsHandlerImpl } from '~/handlers';
-import { ChatSseService, DiscordBridgeService } from './services';
+import '~/services';
+
 // Cors
 const cors = {
   use: 'cors',
@@ -85,7 +83,7 @@ const serverConfiguration: ServerConfiguration = {
     ttl: 60 * 1000 * 5, // ms
     store: memoryStore,
   },
-  acceptMimes: ['application/json', 'application/xml'],
+  acceptMimes: ['application/json', 'application/xml', 'text/event-stream'],
   httpPort: parseInt(getRequiredEnv('PORT'), 10),
   httpsPort: false,
   disableComponentsScan: true,
@@ -98,7 +96,13 @@ const serverConfiguration: ServerConfiguration = {
     cors,
     cookieParser(),
     methodOverride(),
-    compression(),
+    compression({
+      filter: (req, res) => {
+        const type = res.getHeader('Content-Type');
+        if (type && String(type).includes("text/event-stream")) return false;
+        return compression.filter(req, res);
+      }
+    }),
     { use: 'json-parser'},
     { use: 'urlencoded-parser', options: { extended: true } },
     helmet({
@@ -110,7 +114,7 @@ const serverConfiguration: ServerConfiguration = {
           scriptSrc: ["'self'", "'unsafe-inline'", 'https:'],
         },
       },
-    }),
+    })
   ],
   exclude: ['**/*.spec.ts'],
   // the views settings
@@ -135,18 +139,18 @@ type ServiceConfiguration = DIConfiguration & ServerConfiguration;
 @Configuration(serverConfiguration)
 export class Server {
 
-  @Inject() 
-  injector!: InjectorService;
+  @Inject()
+  protected app: PlatformApplication;
 
   @Configuration()
   protected settings: ServiceConfiguration;
 
   $afterInit() {
     // Initialize the class-validator injection
-    const injector = this.injector;
+    const { injector } = this.app;
     useContainer(
       {
-        get<T>(type: ProviderType): T | undefined {
+        get<T>(type: T): T | undefined {
           return injector.hasProvider(type)
             ? (injector.get<T>(type) as T)
             : undefined;
@@ -154,5 +158,24 @@ export class Server {
       },
       { fallback: true },
     );
+  }
+
+  $beforeRoutesInit() {
+    this.app
+      .use(cookieParser())
+      .use(methodOverride())
+      .use(
+        session({
+          secret: process.env.SESSION_SECRET as string,
+          resave: true,
+          saveUninitialized: true,
+          // maxAge: 36000,
+          cookie: {
+            path: '/',
+            httpOnly: false,
+            secure: true,
+          },
+        }),
+      );
   }
 }

@@ -5,6 +5,7 @@ import HomeLayout from "../layouts/HomeLayout";
 import { Suspense } from "react";
 import ChatLayout from "../layouts/ChatLayout";
 import React from "react";
+import MainLayout from "../layouts/MainLayout";
 
 const ProjectsPage = React.lazy(() => import("~/pages/projects"));
 const ChatPage = React.lazy(() => import("~/pages/chat"));
@@ -15,27 +16,33 @@ const routes: RouteObject[] = [
   {
     path: "/",
     id: "root",
-    element: <HomeLayout />,
+    element: <MainLayout />,
     children: [
       {
         path: "/",
-        element: <Home />,
-      },
-      {
-        path: "projects",
-        element: <ProjectsPage />,
-      },
-      {
-        path: "/c",
-        element: <ChatLayout />,
+        element: <HomeLayout />,
         children: [
           {
-            path: "/c/:chatId",
-            element: (
-              <Suspense>
-                <ChatPage />
-              </Suspense>
-            )
+            path: "/",
+            element: <Home />,
+          },
+          {
+            path: "projects",
+            element: <ProjectsPage />,
+          },
+          {
+            path: "/c",
+            element: <ChatLayout />,
+            children: [
+              {
+                path: "/c/:chatId",
+                element: (
+                  <Suspense>
+                    <ChatPage />
+                  </Suspense>
+                )
+              }
+            ]
           }
         ]
       }

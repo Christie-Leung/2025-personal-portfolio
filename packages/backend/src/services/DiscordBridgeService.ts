@@ -8,7 +8,7 @@ interface CreateThreadRes { threadId: string; name: string; }
 export class DiscordBridgeService {
   private baseUrl = process.env.DISCORD_BRIDGE_URL || "http://localhost:4001";
 
-  async createThread(chatId: ChatId): Promise<CreateThreadRes> {
+  public async createThread(chatId: ChatId): Promise<CreateThreadRes> {
     const resp = await fetch(`${this.baseUrl}/threads`, {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -18,8 +18,7 @@ export class DiscordBridgeService {
     return resp.json() as Promise<CreateThreadRes>;
   }
 
-  async postMessage(threadId: string, content: string) {
-    console.log("posted");
+  public async postMessage(threadId: string, content: string) {
     const resp = await fetch(`${this.baseUrl}/threads/${threadId}/messages`, {
       method: "POST",
       headers: { "content-type": "application/json" },

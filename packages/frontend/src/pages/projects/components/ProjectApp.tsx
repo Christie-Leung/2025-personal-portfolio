@@ -19,7 +19,7 @@ const ProjectApp = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="w-1/5 flex flex-col items-center text-center hover:scale-105 transition-transform duration-200">
+        <div className="w-1/3 md:w-1/5 flex flex-col items-center text-center hover:scale-105 transition-transform duration-200">
           <img src={project.appIcon} alt={project.name} className="w-16 h-16 rounded-md" />
           <p className="text-sm">{project.name}</p>
         </div>

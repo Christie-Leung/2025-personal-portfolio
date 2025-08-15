@@ -1,15 +1,18 @@
 import { LuGithub, LuLinkedin, LuMenu } from "react-icons/lu";
 import { Button } from "../../components/ui/button";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuItem, useSidebar } from "../../components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarTrigger, useSidebar } from "../../components/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../components/ui/tooltip";
 import { LayoutGridIcon, SearchIcon, SquarePenIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "~/lib/utils";
 import { ChatId } from "@2025-personal-portfolio/common/src/ids";
+import { useIsMobile } from "~/hooks/use-mobile";
 
 const MenuDrawer = () => {
-  const { open, setOpen } = useSidebar();
+  const { open, openMobile, toggleSidebar } = useSidebar();
   const navigate = useNavigate();
+  const drawerOpen = open || openMobile;
+
 
   const isActive = (label: string) => {
     return window.location.pathname.toLocaleLowerCase().includes(label.toLowerCase());
@@ -22,19 +25,22 @@ const MenuDrawer = () => {
           <Button 
             variant={isActive(label) ? "secondary" : "ghost"}
             className="w-full flex justify-start items-center"
-            onClick={onClick}
+            onClick={() => {
+              toggleSidebar();
+              onClick?.();
+            }}
           >
             {icon}
             <span className={cn(
               "transition duration-200 ease-in-out",
-              open ? "opacity-100" : "opacity-0"
+              drawerOpen ? "opacity-100" : "opacity-0"
             )}>{label}</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent 
           side="right" 
           sideOffset={8}
-          className={open ? "hidden" : ""}
+          className={drawerOpen ? "hidden" : ""}
         >
           <p className="text-xs">{label}</p>
         </TooltipContent>
@@ -47,7 +53,10 @@ const MenuDrawer = () => {
       <Button 
         variant={isActive(id.toString()) ? "secondary" : "ghost"}
         className="w-full flex justify-start items-center p-2"
-        onClick={() => navigate(`/c/${id}`)}>
+        onClick={() => {
+          navigate(`/c/${id}`);
+          toggleSidebar();
+        }}>
         {chat}
       </Button>
     </SidebarMenuItem>
@@ -60,11 +69,9 @@ const MenuDrawer = () => {
           <SidebarMenuItem>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" onClick={() => setOpen(!open)}>
-                  <LuMenu />
-                </Button>
+                <SidebarTrigger />
               </TooltipTrigger>
-              <TooltipContent side="right" sideOffset={8} className={open ? "hidden" : ""}>
+              <TooltipContent side="right" sideOffset={8} className={drawerOpen ? "hidden" : ""}>
                 <p className="text-xs">Open Sidebar</p>
               </TooltipContent>
             </Tooltip>
@@ -85,7 +92,7 @@ const MenuDrawer = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        {open && (
+        {drawerOpen && (
           <SidebarGroup>
             <SidebarGroupLabel className="text-sm">Chats</SidebarGroupLabel>
             <SidebarGroupContent>

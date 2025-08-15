@@ -2,6 +2,8 @@
 import { MessageBlock } from "~/generated/models/MessageBlock";
 import Heading from "./Heading";
 import Table from "./Table";
+import Thinking from "./Thinking";
+import { TextShimmer } from "~/components/ui/text-shimmer";
 
 type BlockRendererProps = {
   block: MessageBlock;
@@ -13,6 +15,9 @@ const BlockRenderer = ({
   switch (block.type) {
     case "paragraph":
       return <span className="text-base leading-7 text-primary pb-4">{block.text}</span>;
+
+    case "thinking":
+      return <TextShimmer>Thinking...</TextShimmer>;
 
     case "heading":
       return <Heading {...block} />;

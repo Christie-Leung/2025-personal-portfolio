@@ -156,6 +156,10 @@ const make = async <T>(
   // eslint-disable-next-line no-underscore-dangle
   options.headers.set(HeaderConstants.I_WEB_HASH, window?.__app?.hash);
 
+  if (requestOption.body) {
+    options.headers.set(HeaderConstants.CONTENT_TYPE, 'application/json');
+    options.body = serialize(requestOption.body);
+  }
 
   const url = `${config.apiHost}/${uri.replace(/^\/+/g, '')}`;
   try {
@@ -254,7 +258,7 @@ export const http = {
    * @param options  the {@link PostRequestOption
    * @returns
    */
-  post: <T>(uri: string, options: PostRequestOption): Promise<HttpResult<T>> =>
+  post: <T>(uri: string, options: PostRequestOption): Promise<HttpResult<T>> => 
     make(uri, 'POST', { ...options }),
 
   /**

@@ -8,8 +8,18 @@ export function buildHttp(client: Client, opts: { backendWebhook: string }) {
 
   // Create a new thread for a chat
   app.post("/threads", async (req: Request<{}, {}, { chatId: string; name?: string }>, res: Response) => {
+    console.log("creating new thread", req.body);
     const { chatId, name } = req.body as { chatId: string; name?: string };
 
+    //check if a thread already exists for this chatId
+    const existingThread = client.channels.cache.find(ch => {
+      if (ch.type !== ChannelType.PublicThread && ch.type !== ChannelType.PrivateThread) return false;
+      return ch.name === `chat-${chatId}`;
+    });
+    if (existingThread && existingThread.type === ChannelType.PublicThread) {
+      console.log("Thread already exists:", existingThread.id);
+      return res.status(201).json({ threadId: existingThread.id, name: existingThread.name });
+    }
     // Resolve a parent TextChannel: prefer configured ones; otherwise pick any reasonable default.
     let parent: TextChannel | null = null;
 
@@ -43,10 +53,12 @@ export function buildHttp(client: Client, opts: { backendWebhook: string }) {
     const { content } = req.body as { content: string };
     const thread = await client.channels.fetch(threadId).catch(() => null);
     if (!thread || (thread.type !== ChannelType.PublicThread && thread.type !== ChannelType.PrivateThread)) {
+      console.log("Thread not found:", threadId);
       return res.status(404).json({ error: "Thread not found" });
     }
-    // @ts-ignore - both public/private threads have send
-    const message = await (thread as any).send(content);
+
+    const message = await thread.send(content);
+    console.log("Message sent:", message.id);
     return res.status(201).json({ messageId: message.id });
   });
 

@@ -5,7 +5,6 @@ import {
 
 import { Context } from '@tsed/platform-params';
 import { joinUriComponents } from '@2025-personal-portfolio/common/dist/utils';
-import { Constant } from '@tsed/di';
 import { Page, PageMetadata } from '@2025-personal-portfolio/common/dist/paging';
 import { InternalPage } from './InternalPage';
 import { BoxConfig } from '~/config';
@@ -15,7 +14,6 @@ type Data = { result: unknown[] };
 
 @ResponseFilter('application/json')
 export class PaginationResponseFilter implements ResponseFilterMethods {
-  @Constant('box')
   protected boxConfig: BoxConfig;
 
   toPage = <T>(
