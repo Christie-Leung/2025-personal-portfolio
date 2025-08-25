@@ -33,15 +33,19 @@ export class ChatSseService extends EventEmitter{
     const client = this.clients.get(chatId.toString());
     if (client && client.res === res) {
       this.clients.delete(chatId.toString());
+      console.log(`Removed SSE client for chatId ${chatId}`);
     }
   }
 
   public push(chatId: ChatId, event: StreamEvent, isDiscord?: boolean) {
+    console.log(`Pushing event to SSE clients for chatId ${chatId}:`, event);
     const client = this.clients.get(chatId.toString());
     let data = `data: ${JSON.stringify(event.data)}\n\n`
     if (isDiscord) {
       data = `event: discord_message\ndata: ${JSON.stringify(event.data)}\n\n`;
+      console.log(`Pushing Discord event to SSE clients for chatId ${chatId}:`, event);
     }
+    console.log(this.clients, client);
     if (client) {
       try {
         client.res.write(data);

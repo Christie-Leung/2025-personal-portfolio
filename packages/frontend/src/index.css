@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+	font-family: 'Minecraft';
+	src: url('/assets/fonts/minecraft.woff2') format('woff2');
+}
+
 @layer base {
   h1 {
     @apply text-3xl font-bold;
@@ -119,7 +124,7 @@
   --accent: oklch(0.369 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 15%);
+  --border: oklch(1 0 0 / 3%);
   --input: oklch(0.30 0 0);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);

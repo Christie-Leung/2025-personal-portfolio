@@ -37,7 +37,7 @@ export class ChatsHandlerImpl implements ChatsHandler {
 
   async discordEvents(payload: DiscordEventPayload): Promise<DiscordEvents200Response> {
     let chatId: ChatId | undefined;
-
+    console.log("Received Discord event:", payload);
     if (payload.chatId) {
       chatId = new ChatId(payload.chatId);
     }
@@ -80,11 +80,11 @@ export class ChatsHandlerImpl implements ChatsHandler {
     res.setHeader("Cache-Control", "no-cache, no-transform");
     res.setHeader("Connection", "keep-alive");
     res.setHeader("X-Accel-Buffering", "no");
-    res.setHeader("Access-Control-Allow-Origin", process.env.ENVIRONMENT === 'local' ? process.env.FRONTEND_URL : "https://christie.murphyshome.net");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.flushHeaders?.();
 
     res.write(`data: ${JSON.stringify({ message: "Connection established." })}\n\n`);
-
+    console.log(`SSE connection established for chatId ${chatId}`);
     this.sse.addClient(chatId, res);
 
     // keep-alive to prevent proxies from closing idle connections

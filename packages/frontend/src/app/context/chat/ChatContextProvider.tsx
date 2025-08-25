@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useState } from "react"
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react"
 import { getChatIdParam } from "~/hooks/params.hooks";
 import { ChatContext, ChatContextType } from "./ChatContext";
 import { ChatMessage } from "~/generated/models/ChatMessage";
@@ -8,6 +8,8 @@ import { ChatMessageId } from "@2025-personal-portfolio/common/src/ids";
 import { MessageRole } from "~/generated/models/MessageRole";
 import { postMessage } from "~/generated/clients/chats/Chats.client";
 import { MessageBlocks } from "~/generated/models/MessageBlocks";
+import toast from "react-hot-toast";
+import { getRandCatGif } from "~/utils/RandCatGif";
 
 type ChatContextProviderProps = {
   children: ReactNode;
@@ -21,16 +23,18 @@ export function ChatContextProvider({ children }: ChatContextProviderProps) {
   const [isTimeout, setIsTimeout] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const esRef = useRef<EventSource | null>(null);
+  const openRef = useRef(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const connectToStream = () => {
-    if (isConnected) return;
-    setIsConnected(true);
+    if (esRef.current) return;
 
-    let timeoutId: NodeJS.Timeout;
+    openRef.current = false;
 
-    const eventSource = new EventSource(`${config.apiHost}/chats/${chatId}/stream`, {
-      withCredentials: true
-    });
-    
+    const eventSource = new EventSource(`${config.apiHost}/chats/${chatId}/stream`);
+    esRef.current = eventSource;
+
     eventSource.onmessage = m => {
       try {
         const event: StreamEvent = JSON.parse(m.data);
@@ -53,6 +57,11 @@ export function ChatContextProvider({ children }: ChatContextProviderProps) {
             createdAt: new Date(),
             updatedAt: new Date(),
           };
+          setIsLoading(false);
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+          }
           return [...prevMessages, newChatMessage];
         });
       } catch (e) {
@@ -62,33 +71,65 @@ export function ChatContextProvider({ children }: ChatContextProviderProps) {
 
     eventSource.onopen = () => {
       console.log("SSE connected!");
+      openRef.current = true;
       setIsConnected(true);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
     };
 
     eventSource.onerror = (e) => {
       console.error("SSE connection error:", e);
-      eventSource.close();
+      setIsLoading(false);
+      setIsTimeout(true);
       setIsConnected(false);
+      if (esRef.current) {
+        esRef.current.close();
+        esRef.current = null;
+      }
     };
 
-    timeoutId = setTimeout(() => {
-      if (!isConnected) {
-        setIsTimeout(true);
+    timeoutRef.current = setTimeout(() => {
+      if (!openRef.current) {
+        console.warn("SSE connect timeout — closing");
         setIsLoading(false);
-        eventSource.close()
+        setIsConnected(false);
+        setIsTimeout(true);
+        if (esRef.current) {
+          esRef.current.close();
+          esRef.current = null;
+        }
       }
-    })
+    }, 60000);
+
 
     return () => {
-      console.log("Closing SSE connection...");
-      eventSource.close();
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      if (esRef.current) {
+        console.log("Closing SSE connection...");
+        esRef.current.close();
+        esRef.current = null;
+      }
+      setIsLoading(false);
+      setIsTimeout(true);
       setIsConnected(false);
     };
   }
 
-  const sendMessage = async (input: string) => {
+  // optional: auto-connect on mount when chatId exists
+  useEffect(() => {
     if (!chatId) return;
+    const cleanup = connectToStream();
+    return () => { cleanup?.(); };
+  }, [chatId]);
 
+  const catRelated = ["car", "cat", "catto"]
+
+  const sendMessage = async (input: string) => {
     const userMessage: ChatMessage = {
       id: new ChatMessageId(),
       chatId,
@@ -101,15 +142,44 @@ export function ChatContextProvider({ children }: ChatContextProviderProps) {
       updatedAt: new Date(),
     };
     setMessages(prevMessages => [...prevMessages, userMessage]);
+    
 
     try {
+      setIsTimeout(false);
+      setIsLoading(true);
+      setTimeout(() => {
+        if (catRelated.includes(input.toLowerCase())) {
+          setMessages(prevMessages => {
+            const newChatMessage: ChatMessage = {
+              id: new ChatMessageId(), 
+              chatId,
+              role: MessageRole.System,
+              content: { blocks: [{ type: "image", url: getRandCatGif() }] },
+              messageIndex: prevMessages.length,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            };
+            setIsLoading(false);
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+              timeoutRef.current = null;
+            }
+            return [...prevMessages, newChatMessage];
+          });
+        }
+      }, 1000);
       await postMessage({
         ids: { chatId },
         body: { content: input }
       });
-      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        setIsTimeout(true);
+      }, 30000);
     } catch (error) {
       console.error("Failed to post message:", error);
+    } finally {
+      toast.error("This feature is still being developed.");
     }
   };
 

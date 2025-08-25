@@ -1,7 +1,8 @@
 import type { HeadingBlock } from "~/generated/models/HeadingBlock";
 import type { JSX } from "react";
+import Typewriter from "./Typewriter";
 
-const Heading = ({ level, text }: HeadingBlock) => {
+const Heading = ({ level, text, disabled = false }: HeadingBlock & { disabled?: boolean }) => {
   const Tag = (`h${level}` as unknown) as keyof JSX.IntrinsicElements;
   const sizes: Record<number, string> = {
     1: "text-3xl pb-8",
@@ -11,7 +12,14 @@ const Heading = ({ level, text }: HeadingBlock) => {
     5: "text-base pb-2",
     6: "text-sm pb-2"
   };
-  return <Tag className={`${sizes[level]} font-semibold text-primary`}>{text}</Tag>;
+  return (
+    <Typewriter 
+      text={text} 
+      as={Tag} 
+      disabled={disabled}
+      className={`${sizes[level]} font-semibold text-primary`} 
+    />
+  );
 }
 
 export default Heading;

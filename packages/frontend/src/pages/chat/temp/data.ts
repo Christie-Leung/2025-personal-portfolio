@@ -12,6 +12,9 @@ import { MessageBlock } from "~/generated/models/MessageBlock";
 import { MessageRole } from "~/generated/models/MessageRole";
 import { WorkLocationType } from "~/generated/models/WorkLocationType";
 
+
+export const workChatId = new ChatId("CHf8103ac1-a079-415f-9759-463e9a627249");
+
 const companies: Company[] = [
   {
     id: new CompanyId(),
@@ -362,7 +365,7 @@ const buildConversation = ({
   experiences,
   userPrompt = "Return her work experiences from newest to oldest.",
   conversationTitle = "Her work experiences",
-  chatId = new ChatId(),
+  chatId = workChatId,
   userMsgId = new ChatMessageId(),
   sysMsgId = new ChatMessageId()
 }: {
@@ -479,3 +482,5 @@ export const experienceConvo = buildConversation({
   companies,
   experiences,
 });
+
+export const conversations = [experienceConvo];

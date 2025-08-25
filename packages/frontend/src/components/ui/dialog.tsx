@@ -48,14 +48,24 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  banner,
   bannerImg,
+  bannerPos = "top",
   alt,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean,
   bannerImg?: string,
+  banner?: React.ReactNode,
+  bannerPos?: "top" | "left",
   alt?: string
 }) {
+
+  const bannerStyles = {
+    top: "top-0",
+    left: "left-0",
+  };
+
   return (
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay />
@@ -68,10 +78,25 @@ function DialogContent({
         {...props}
       >
         {bannerImg && (
-          <img src={bannerImg} alt={alt} className="w-full h-48 object-cover rounded-t-md" />
+          <img src={bannerImg} alt={alt} className="w-full h-full object-cover bg-center rounded-t-md" />
         )}
-        <div className="p-6 flex flex-col gap-4">
-          {children}
+        <div className={cn("flex", {
+          "flex-col": banner && bannerPos === "top",
+          "flex-row": banner && bannerPos === "left",
+        })}>
+        {banner && bannerPos === "top" && (
+          <div className="w-full h-32 bg-gray-200">
+            {banner}
+          </div>
+        )}
+        {banner && bannerPos === "left" && (
+          <div className="w-fit flex flex-col">
+            {banner}
+          </div>
+        )}
+          <div className="p-6 w-full h-full flex flex-col space-y-4">
+            {children}
+          </div>
         </div>
         {showCloseButton && (
           <DialogPrimitive.Close

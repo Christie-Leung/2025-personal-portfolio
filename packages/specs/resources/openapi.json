@@ -501,7 +501,8 @@
           { "$ref": "#/components/schemas/CodeBlock" },
           { "$ref": "#/components/schemas/TableBlock" },
           { "$ref": "#/components/schemas/ImageBlock" },
-          { "$ref": "#/components/schemas/ListBlock" }
+          { "$ref": "#/components/schemas/ListBlock" },
+          { "$ref": "#/components/schemas/ThinkingBlock" }
         ],
         "discriminator": {
           "propertyName": "type",
@@ -512,7 +513,8 @@
             "code": "#/components/schemas/CodeBlock",
             "table": "#/components/schemas/TableBlock",
             "image": "#/components/schemas/ImageBlock",
-            "list": "#/components/schemas/ListBlock"
+            "list": "#/components/schemas/ListBlock",
+            "thinking": "#/components/schemas/ThinkingBlock"
           }
         }
       },
@@ -628,6 +630,19 @@
           }
         },
         "required": ["type", "ordered", "items"]
+      },
+      "ThinkingBlock": {
+         "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "thinking"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": ["type", "text"]
       },
       "ProjectId": {
         "type": "object",

@@ -6,9 +6,9 @@ import Header from "./Header";
 const HomeLayout = () => {
 
   return (
-    <div className="w-full max-h-screen">
+    <div className="w-full h-full max-h-screen">
       <Header />
-      <main className="w-full">
+      <main>
         <Outlet />
       </main>
     </div>

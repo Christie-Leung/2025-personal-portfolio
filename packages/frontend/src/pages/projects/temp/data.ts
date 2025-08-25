@@ -4,6 +4,7 @@ import { Project } from "~/generated/models/Project";
 import { ProjectStatus } from "~/generated/models/ProjectStatus";
 import { UrlType } from "~/generated/models/UrlType";
 
+
 export const projects: Project[] = [
   {
     id: new ProjectId(),
@@ -31,8 +32,8 @@ export const projects: Project[] = [
     status: ProjectStatus.Completed,
     reviews: [],
     link: [],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/dueling_app.jpg",
+    banner: "/assets/projects/dueling_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
@@ -67,8 +68,8 @@ export const projects: Project[] = [
       { platform: UrlType.Website, link: "https://christie.murphyshome.net" },
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/2025-personal-portfolio" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/personalweb_app.jpg",
+    banner: "/assets/projects/personalweb_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
@@ -101,8 +102,8 @@ export const projects: Project[] = [
     link: [
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/fullstack-ecommerce-web" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/ecommerce_app.jpg",
+    banner: "/assets/projects/ecommerce_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
@@ -135,12 +136,11 @@ export const projects: Project[] = [
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/kuzzi" },
       { platform: UrlType.Website, link: "https://kuzzi.vercel.app/" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/upcycle_app.png",
+    banner: "/assets/projects/upcycle_banner.png",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
-
   {
     id: new ProjectId(),
     name: "EduResource Analytics",
@@ -170,8 +170,8 @@ export const projects: Project[] = [
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/hack-la-2023" },
       { platform: UrlType.Website, link: "https://events.ctlt.ubc.ca/events/2023-fall-learning-analytics-hackathon/" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/eduresource_app.jpg",
+    banner: "/assets/projects/eduresource_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
@@ -204,8 +204,8 @@ export const projects: Project[] = [
     link: [
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/MentHer" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/menther_app.jpg",
+    banner: "/assets/projects/menther_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
@@ -239,8 +239,8 @@ export const projects: Project[] = [
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/Communitrip" },
       { platform: UrlType.Website, link: "https://devpost.com/software/communitrip" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/communitrip_app.jpg",
+    banner: "/assets/projects/communitrip_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
@@ -273,8 +273,8 @@ export const projects: Project[] = [
     link: [
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/Applane" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/applane_app.jpg",
+    banner: "/assets/projects/applane_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
@@ -307,8 +307,8 @@ export const projects: Project[] = [
     link: [
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/VelaDiscordBot" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/veladiscord_app.jpg",
+    banner: "/assets/projects/veladiscord_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
@@ -341,8 +341,8 @@ export const projects: Project[] = [
     link: [
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/Social-Media-Helper" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/socialmediahelper_app.jpg",
+    banner: "/assets/projects/socialmediahelper_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   },
@@ -375,8 +375,8 @@ export const projects: Project[] = [
     link: [
       { platform: UrlType.GitHub, link: "https://github.com/Christie-Leung/DoctorEZ-Application" }
     ],
-    appIcon: "https://placehold.co/96x96",
-    banner: "https://placehold.co/1200x300",
+    appIcon: "/assets/projects/doctorez_app.jpg",
+    banner: "/assets/projects/doctorez_banner.jpg",
     createdAt: new Date("2025-08-10T00:00:00Z"),
     updatedAt: new Date("2025-08-10T00:00:00Z")
   }

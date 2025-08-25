@@ -1,10 +1,9 @@
 
-import { ChatId } from "@2025-personal-portfolio/common/src/ids";
 import { useNavigate } from "react-router-dom";
 import { Chatbox } from "~/components";
-import Thinking from "~/components/chat/blocks/Thinking";
 import { Button } from "~/components/ui/button";
-import { TextShimmer } from "~/components/ui/text-shimmer";
+import { workChatId } from "../chat/temp/data";
+import ContactModal from "~/components/ContactModal";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -12,7 +11,7 @@ const HomePage = () => {
   const items = [
     {
       label: "Work Experiences",
-      action: () => navigate("/work-experiences")
+      action: () => navigate("/c/" + workChatId)
     },
     {
       label: "Projects",
@@ -20,30 +19,42 @@ const HomePage = () => {
     },
     {
       label: "Contact",
-      action: () => navigate("/contact")
+      action: () => {}
     }
   ]
   return (
-    <div className="flex w-full h-full items-center justify-center pb-20">
+    <div className="flex w-full h-[80vh] items-center justify-center pb-20">
       <div className="flex w-[82vw] md:w-[50vw] items-center justify-center flex-col text-center space-y-10">
         <div className="space-y-1">
-          <TextShimmer 
-            as="h1"
-          >
-            Hi! I'm Christie.
-          </TextShimmer>
+          <h1>Hi! I'm Christie.</h1>
           <h4>What do you want to learn about me?</h4>
-          <div className="flex flex-row flex-wrap justify-center w-full py-2 space-x-2 space-y-2">
-            {items.map((item, index) => (
-              <Button 
-                key={index} 
-                roundedFull 
-                variant="secondary" 
-                size="lg" 
-                onClick={item.action}>
-                {item.label}
-              </Button>
-            ))}
+          <div className="flex flex-row flex-wrap justify-center w-full py-2 space-x-2">
+            {items.map((item, index) => {
+              if (item.label === "Contact") {
+                return (
+                  <ContactModal key={index}>
+                    <Button
+                      roundedFull 
+                      variant="secondary" 
+                      size="lg" 
+                    >
+                      {item.label}
+                    </Button>
+                  </ContactModal>
+                );
+              }
+
+              return (
+                <Button 
+                  key={index} 
+                  roundedFull 
+                  variant="secondary" 
+                  size="lg" 
+                  onClick={item.action}>
+                  {item.label}
+                </Button>
+              )
+            })}
           </div>
         </div>
         <Chatbox />

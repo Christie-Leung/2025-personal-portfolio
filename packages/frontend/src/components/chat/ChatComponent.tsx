@@ -22,7 +22,7 @@ const ChatComponent = ({
         "w-full": chatMessage.role === MessageRole.System,
       })}>
         {chatMessage.content.blocks.map((block, index) => (
-          <BlockRenderer key={index} block={block} />
+          <BlockRenderer key={index} block={block} mode="done" />
         ))}
       </div>
     </div>

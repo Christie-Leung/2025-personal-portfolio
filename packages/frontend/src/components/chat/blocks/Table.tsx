@@ -1,6 +1,7 @@
 import type { TableBlock } from "~/generated/models/TableBlock";
+import Typewriter from "./Typewriter";
 
-const Table = ({ headers, rows }: TableBlock) => {
+const Table = ({ headers, rows, disabled = false }: TableBlock & { disabled?: boolean }) => {
   return (
     <div className="w-full overflow-x-auto mb-10">
       <table className="w-full border-collapse rounded-xl">
@@ -11,7 +12,7 @@ const Table = ({ headers, rows }: TableBlock) => {
                 key={i}
                 className="px-3 py-2 text-left text-xs font-medium uppercase tracking-wide text-primary"
               >
-                {h}
+                <Typewriter text={h} disabled={disabled} />
               </th>
             ))}
           </tr>
@@ -21,7 +22,7 @@ const Table = ({ headers, rows }: TableBlock) => {
             <tr key={ri} className="not-last:border-b not-last:border-border/30">
               {r.map((cell, ci) => (
                 <td key={ci} className="px-3 py-2 text-sm text-primary">
-                  {cell}
+                  <Typewriter text={cell} disabled={disabled} />
                 </td>
               ))}
             </tr>
