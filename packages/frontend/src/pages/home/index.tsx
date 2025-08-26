@@ -28,7 +28,7 @@ const HomePage = () => {
         <div className="space-y-1">
           <h1>Hi! I'm Christie.</h1>
           <h4>What do you want to learn about me?</h4>
-          <div className="flex flex-row flex-wrap justify-center w-full py-2 space-x-2">
+          <div className="flex flex-row flex-wrap justify-center w-full py-2 gap-2">
             {items.map((item, index) => {
               if (item.label === "Contact") {
                 return (
