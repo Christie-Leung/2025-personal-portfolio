@@ -1,5 +1,5 @@
 
-import type { Key } from "react"
+import { useEffect, type Key } from "react"
 import { UrlButton } from "~/components"
 import { BlockRenderer } from "~/components/chat/blocks"
 import Tag from "~/components/Tag"
@@ -27,10 +27,11 @@ const ProjectApp = ({
       <DialogContent
         bannerImg={project.banner}
         alt={project.name}
+        className="max-h-[70vh] md:max-h-[90vh]"
       >
         <DialogHeader>
-          <div className="flex flex-row justify-between items-center">
-            <DialogTitle className="font-normal w-fit">{project.name}</DialogTitle>
+          <div className="flex flex-col md:flex-row justify-between md:items-center space-y-2">
+            <DialogTitle className="font-normal w-fit text-left">{project.name}</DialogTitle>
             <div className="flex flex-row space-x-2 w-fit">
              {project.link.map((link, index) => (
                 <UrlButton 
@@ -43,16 +44,17 @@ const ProjectApp = ({
               ))}
             </div>
           </div>
-          <div className="flex flex-row space-x-2">
+          <div className="relative flex flex-wrap flex-grow gap-2">
             {project.tags && project.tags.slice(0, 3).map((tag: string, index: Key) => (
-                <Tag key={index} tag={tag} />
-              ))}
+              <Tag key={index} className="flex-none"tag={tag} />
+            ))}
           </div>
         </DialogHeader>
-        <DialogDescription />
-        {project.description.blocks.map((desc: MessageBlock, index: number) => (
-          <BlockRenderer key={index} block={desc} />
-        ))}
+        <DialogDescription>
+          {project.description.blocks.map((desc: MessageBlock, index: number) => (
+            <BlockRenderer key={index} block={desc} />
+          ))}
+        </DialogDescription>
         <DialogFooter>
           <DialogClose asChild className="relative">
             <Button variant="outline">Close</Button>

@@ -3,7 +3,7 @@ import { Badge } from "./ui/badge";
 
 
 
-const Tag = ({ tag }: { tag: string }) => {
+const Tag = ({ tag, className }: { tag: string, className?: string }) => {
   const color = stringToPastelColor(tag);
 
   const textColor = getDarkerShade(color, 60);
@@ -11,7 +11,7 @@ const Tag = ({ tag }: { tag: string }) => {
   return (
     <Badge
       variant="default"
-      className="hover:cursor-default"
+      className={cn("hover:cursor-default", className)}
       style={{ backgroundColor: color, color: textColor }}
     >
       {tag}

@@ -1,11 +1,11 @@
-import { ChatId, ChatMessageId } from "@2025-personal-portfolio/common/src/ids";
+import { ChatMessageId } from "@2025-personal-portfolio/common/src/ids";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useChat } from "~/app/context/chat";
 import ChatComponent from "~/components/chat/ChatComponent";
 import { Chat } from "~/generated/models/Chat";
 import { ChatMessage } from "~/generated/models/ChatMessage";
 import { MessageRole } from "~/generated/models/MessageRole";
-import { getRandServiceUnavailMsg } from "~/utils/ServiceUnavailMsg";
+import { getRandServiceUnavailMsg } from "~/utils/serviceUnavailMsg";
 
 type ChatProps = {
   conversation: Chat;

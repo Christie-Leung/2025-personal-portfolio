@@ -9,7 +9,7 @@ import { MessageRole } from "~/generated/models/MessageRole";
 import { postMessage } from "~/generated/clients/chats/Chats.client";
 import { MessageBlocks } from "~/generated/models/MessageBlocks";
 import toast from "react-hot-toast";
-import { getRandCatGif } from "~/utils/RandCatGif";
+import { getRandCatGif } from "~/utils/randCatGif";
 
 type ChatContextProviderProps = {
   children: ReactNode;

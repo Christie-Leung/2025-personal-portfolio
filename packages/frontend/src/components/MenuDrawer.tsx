@@ -2,7 +2,7 @@ import { LuGithub, LuLinkedin, LuMenu } from "react-icons/lu";
 import { Button } from "./ui/button";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarTrigger, useSidebar } from "./ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { LayoutGridIcon, SearchIcon, SquarePenIcon } from "lucide-react";
+import { ArrowUpRightIcon, LayoutGridIcon, SearchIcon, SquarePenIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "~/lib/utils";
 import { ChatId } from "@2025-personal-portfolio/common/src/ids";
@@ -11,6 +11,7 @@ import { AvatarImage } from "@radix-ui/react-avatar";
 import ContactModal from "~/components/ContactModal";
 import SearchModal from "~/components/SearchModal";
 import { useConvo } from "~/app/context/chat/ConvoContext";
+import { useState } from "react";
 
 const MenuDrawer = () => {
   const { open, openMobile, toggleSidebar } = useSidebar();
@@ -20,37 +21,51 @@ const MenuDrawer = () => {
 
 
   const isActive = (label: string) => {
+    if (label === "New Chat") {
+      return window.location.pathname === "/";
+    }
     return window.location.pathname.toLocaleLowerCase().includes(label.toLowerCase());
   }
 
-  const tooltipButton = (icon: React.ReactNode, label: string, onClick?: () => void) => (
-    <SidebarMenuItem>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button 
-            variant={isActive(label) ? "secondary" : "ghost"}
-            className="w-full flex justify-start items-center"
-            onClick={() => {
-              onClick?.();
-            }}
+  const tooltipButton = (icon: React.ReactNode, label: string, onClick?: () => void, redirect?: boolean) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    const iconToShow = redirect && isHovered && !drawerOpen ? <ArrowUpRightIcon className="ml-auto text-muted-foreground opacity-50"/> : icon;
+
+    
+    return (
+      <SidebarMenuItem>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button 
+              variant={isActive(label) ? "secondary" : "ghost"}
+              className="w-full flex justify-start items-center"
+              onClick={() => {
+                onClick?.();
+                if (drawerOpen) toggleSidebar();
+              }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+                {iconToShow}
+                <span className={cn(
+                  "transition duration-200 ease-in-out",
+                  drawerOpen ? "opacity-100" : "opacity-0"
+                )}>{label}</span>
+              {redirect && <ArrowUpRightIcon className="ml-auto text-muted-foreground opacity-50"/>}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent 
+            side="right" 
+            sideOffset={8}
+            className={drawerOpen ? "hidden" : ""}
           >
-            {icon}
-            <span className={cn(
-              "transition duration-200 ease-in-out",
-              drawerOpen ? "opacity-100" : "opacity-0"
-            )}>{label}</span>
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent 
-          side="right" 
-          sideOffset={8}
-          className={drawerOpen ? "hidden" : ""}
-        >
-          <p className="text-xs">{label}</p>
-        </TooltipContent>
-      </Tooltip>
-    </SidebarMenuItem>
-  );
+            <p className="text-xs">{label}</p>
+          </TooltipContent>
+        </Tooltip>
+      </SidebarMenuItem>
+    )
+  };
 
   const searchButton = () => (
       <SidebarMenuItem>
@@ -87,6 +102,7 @@ const MenuDrawer = () => {
         className="w-full flex justify-start items-center p-2"
         onClick={() => {
           navigate(`/c/${id}`);
+          if (openMobile) toggleSidebar();
         }}>
         {chat}
       </Button>
@@ -117,8 +133,8 @@ const MenuDrawer = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {tooltipButton(<LuGithub />, "Github", () => window.open("https://github.com/Christie-Leung"))}
-              {tooltipButton(<LuLinkedin />, "Linkedin", () => window.open("https://www.linkedin.com/in/christie-leung-dev/"))}
+              {tooltipButton(<LuGithub />, "Github", () => window.open("https://github.com/Christie-Leung"), true)}
+              {tooltipButton(<LuLinkedin />, "Linkedin", () => window.open("https://www.linkedin.com/in/christie-leung-dev/"), true)}
               {tooltipButton(<LayoutGridIcon />, "Projects", () => navigate("/projects"))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -137,7 +153,7 @@ const MenuDrawer = () => {
         )}
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
+        <SidebarMenu className="pb-2">
           <SidebarMenuItem>
             <Tooltip>
               <TooltipTrigger asChild>

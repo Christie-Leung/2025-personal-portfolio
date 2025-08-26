@@ -1,24 +1,25 @@
-import { GlobeIcon } from "lucide-react";
-import { LuGithub, LuLinkedin, LuInstagram } from "react-icons/lu";
-import { SocialUrl } from "~/generated/models/SocialUrl";
-import { UrlType } from "~/generated/models/UrlType";
-import { cn } from "~/lib/utils";
-import { Button } from "./ui/button";
-
+import { GlobeIcon, ArrowUpRight } from "lucide-react"
+import { LuGithub, LuLinkedin, LuInstagram } from "react-icons/lu"
+import { SocialUrl } from "~/generated/models/SocialUrl"
+import { UrlType } from "~/generated/models/UrlType"
+import { cn } from "~/lib/utils"
+import { Button } from "./ui/button"
+import { useState } from "react"
 
 type UrlButtonProps = React.ComponentProps<typeof Button> & {
-  socialUrl: SocialUrl;
-  showText?: boolean;
-  coloured?: boolean;
+  socialUrl: SocialUrl
+  showText?: boolean
+  coloured?: boolean
 }
 
-const UrlButton = ({ 
-  socialUrl, 
+const UrlButton = ({
+  socialUrl,
   showText = false,
   coloured = false,
-  ...buttonProps 
+  ...buttonProps
 }: UrlButtonProps) => {
-  const link = socialUrl.link;
+  const [isHovered, setIsHovered] = useState(false)
+  const link = socialUrl.link
 
   const platformConfig: Record<
     UrlType,
@@ -63,10 +64,14 @@ const UrlButton = ({
   const config = platformConfig[socialUrl.platform as UrlType]
   if (!config) return null
 
-  const Icon = config.icon
+  // decide which icon to render
+  const IconToShow = isHovered ? ArrowUpRight : config.icon
+
   return (
     <Button
       onClick={() => window.open(link)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={cn(
         "flex flex-col items-center justify-center rounded-full p-3",
         { [config.bgClass]: coloured },
@@ -74,9 +79,16 @@ const UrlButton = ({
       )}
       {...buttonProps}
     >
-      <Icon className={cn("w-6 h-6", { [config.iconColorClass]: coloured })} />
+      <IconToShow
+        className={cn("w-6 h-6", { [config.iconColorClass]: coloured })}
+      />
       {showText && (
-        <span className={cn("mt-1 text-sm font-medium", { [config.textColorClass]: coloured })}>
+        <span
+          className={cn(
+            "mt-1 text-sm font-medium",
+            { [config.textColorClass]: coloured }
+          )}
+        >
           {config.label}
         </span>
       )}
@@ -84,4 +96,4 @@ const UrlButton = ({
   )
 }
 
-export default UrlButton;
+export default UrlButton

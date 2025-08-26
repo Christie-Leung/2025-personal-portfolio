@@ -45,7 +45,7 @@ const SearchModal = ({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Oops! The search feature is not yet implemented 😬</DialogTitle>
+          <DialogTitle className="text-left leading-snug">Oops! The search feature is not yet implemented 😬</DialogTitle>
         </DialogHeader>
         <DialogDescription>
           Christie is too busy {statement} to implement this feature right now. Please check back later!

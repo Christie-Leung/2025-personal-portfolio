@@ -10,7 +10,7 @@ import { MessageRole } from "~/generated/models/MessageRole";
 import { conversations } from "~/pages/chat/temp/data";
 import { useNavigate } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { getRandCatGif } from "~/utils/RandCatGif";
+import { getRandCatGif } from "~/utils/randCatGif";
 
 
 const Chatbox = () => {

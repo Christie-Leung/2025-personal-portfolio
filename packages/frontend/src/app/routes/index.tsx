@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import ChatLayout from "../layouts/ChatLayout";
 import React from "react";
 import MainLayout from "../layouts/MainLayout";
+import { projectsLoader } from "~/loaders/projectsLoader";
 
 const ProjectsPage = React.lazy(() => import("~/pages/projects"));
 const ChatPage = React.lazy(() => import("~/pages/chat"));
@@ -27,7 +28,8 @@ const routes: RouteObject[] = [
             element: <Home />,
           },
           {
-            path: "projects",
+            path: "/projects",
+            loader: projectsLoader,
             element: <ProjectsPage />,
           },
           {

@@ -15,7 +15,7 @@ const Header = () => {
   location.pathname.includes("/projects") && (headerTitle = "Explore Projects")
 
   return (
-    <div className="z-10 sticky w-full flex items-center justify-between bg-background shadow-xs top-0 left-0 p-4 border-b border-border lg:border-none">
+    <div className="z-10 sticky w-full flex items-center justify-between bg-background shadow-xs top-0 left-0 p-4 py-2 border-b border-border lg:border-none">
       <div className="flex flex-row space-x-2 items-center">
         {isMobile && <SidebarTrigger />}
         {location.pathname !== "/" && <h4>{headerTitle}</h4>}
