@@ -8,6 +8,40 @@ import { UrlType } from "~/generated/models/UrlType";
 export const projects: Project[] = [
   {
     id: new ProjectId(),
+    name: "SpellCheck",
+    slug: "spellcheck",
+    description: {
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Bukkit plugin for KnockturnMC that lets players view their spell collection and skill levels with fast search and clear progression feedback."
+        },
+        {
+          type: "list",
+          ordered: false,
+          items: [
+            "Built menu-driven UIs to browse spells by category, check progress, and discover unlocks; added command-based search for specific spells.",
+            "Focused on smooth state management and intuitive menu navigation using InventoryFramework with lightweight, server-friendly logic.",
+            "Integrated with KnockturnMC internal APIs to fetch live spell data and player progress; packaged with Gradle.",
+            "Adopted by 300+ active players, solving discoverability at scale as the spell list grew."
+          ]
+        }
+      ]
+    },
+    tags: ["Java", "Gradle", "Minecraft", "Bukkit", "InventoryFramework"],
+    status: ProjectStatus.Completed,
+    reviews: [],
+    link: [
+      { platform: UrlType.Website, link: "https://knockturnmc.com/"}
+    ],
+    appIcon: "/assets/projects/spellcheck_app.png",
+    banner: "/assets/projects/spellcheck_banner.png",
+    createdAt: new Date("2025-06-27T00:00:00Z"),
+    updatedAt: new Date("2025-06-27T00:00:00Z")
+  },
+  {
+    id: new ProjectId(),
     name: "Dueling",
     slug: "dueling",
     description: {
@@ -15,7 +49,7 @@ export const projects: Project[] = [
         {
           type: "paragraph",
           text:
-            "Bukkit plugin enabling head-to-head duels on a multiplayer Minecraft server (300+ active players). Built and maintained in collaboration with an international staff team."
+            "Bukkit plugin for KnockturnMC enabling head-to-head duels on a multiplayer Minecraft server (300+ active players). Built and maintained in collaboration with an international staff team."
         },
         {
           type: "list",
@@ -31,11 +65,13 @@ export const projects: Project[] = [
     tags: ["Java", "Gradle", "Minecraft", "Bukkit"],
     status: ProjectStatus.Completed,
     reviews: [],
-    link: [],
+    link: [
+      { platform: UrlType.Website, link: "https://knockturnmc.com/"}
+    ],
     appIcon: "/assets/projects/dueling_app.jpg",
     banner: "/assets/projects/dueling_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2025-05-10T00:00:00Z"),
+    updatedAt: new Date("2025-05-10T00:00:00Z")
   },
 
   {
@@ -70,13 +106,12 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/personalweb_app.jpg",
     banner: "/assets/projects/personalweb_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2022-08-10T00:00:00Z"),
+    updatedAt: new Date("2022-08-10T00:00:00Z")
   },
-
   {
     id: new ProjectId(),
-    name: "Fullstack E-commerce Platform",
+    name: "E-comm Platform",
     slug: "fullstack-ecommerce-platform",
     description: {
       blocks: [
@@ -104,12 +139,12 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/ecommerce_app.jpg",
     banner: "/assets/projects/ecommerce_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2024-01-16T00:00:00Z"),
+    updatedAt: new Date("2024-01-16T00:00:00Z")
   },
   {
     id: new ProjectId(),
-    name: "Upcycled Fashion Platform",
+    name: "Upcycled Fashion",
     slug: "upcycled-fashion-platform",
     description: {
       blocks: [
@@ -138,8 +173,8 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/upcycle_app.png",
     banner: "/assets/projects/upcycle_banner.png",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2023-12-04T00:00:00Z"),
+    updatedAt: new Date("2023-12-04T00:00:00Z")
   },
   {
     id: new ProjectId(),
@@ -172,8 +207,8 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/eduresource_app.jpg",
     banner: "/assets/projects/eduresource_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2023-11-05T00:00:00Z"),
+    updatedAt: new Date("2023-11-05T00:00:00Z")
   },
 
   {
@@ -206,8 +241,8 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/menther_app.jpg",
     banner: "/assets/projects/menther_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2023-10-08T00:00:00Z"),
+    updatedAt: new Date("2023-10-08T00:00:00Z")
   },
 
   {
@@ -241,8 +276,8 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/communitrip_app.jpg",
     banner: "/assets/projects/communitrip_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2023-03-12T00:00:00Z"),
+    updatedAt: new Date("2023-03-12T00:00:00Z")
   },
 
   {
@@ -275,13 +310,13 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/applane_app.jpg",
     banner: "/assets/projects/applane_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2022-04-13T00:00:00Z"),
+    updatedAt: new Date("2022-04-13T00:00:00Z")
   },
 
   {
     id: new ProjectId(),
-    name: "Vela Discord Bot",
+    name: "Vela Bot",
     slug: "vela-discord-bot",
     description: {
       blocks: [
@@ -309,13 +344,13 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/veladiscord_app.jpg",
     banner: "/assets/projects/veladiscord_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2021-05-05T00:00:00Z"),
+    updatedAt: new Date("2021-05-05T00:00:00Z")
   },
 
   {
     id: new ProjectId(),
-    name: "Social Media Helper",
+    name: "Navicord",
     slug: "social-media-helper",
     description: {
       blocks: [
@@ -343,8 +378,8 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/socialmediahelper_app.jpg",
     banner: "/assets/projects/socialmediahelper_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2021-05-10T00:00:00Z"),
+    updatedAt: new Date("2021-05-10T00:00:00Z")
   },
 
   {
@@ -377,7 +412,7 @@ export const projects: Project[] = [
     ],
     appIcon: "/assets/projects/doctorez_app.jpg",
     banner: "/assets/projects/doctorez_banner.jpg",
-    createdAt: new Date("2025-08-10T00:00:00Z"),
-    updatedAt: new Date("2025-08-10T00:00:00Z")
+    createdAt: new Date("2020-08-10T00:00:00Z"),
+    updatedAt: new Date("2020-08-10T00:00:00Z")
   }
 ];

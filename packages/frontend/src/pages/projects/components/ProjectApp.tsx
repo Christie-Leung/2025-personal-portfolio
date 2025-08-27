@@ -28,6 +28,7 @@ const ProjectApp = ({
         bannerImg={project.banner}
         alt={project.name}
         className="max-h-[70vh] md:max-h-[90vh]"
+        showCloseButton={false}
       >
         <DialogHeader>
           <div className="flex flex-col md:flex-row justify-between md:items-center space-y-2">

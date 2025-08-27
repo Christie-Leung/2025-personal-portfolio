@@ -116,7 +116,7 @@ const MenuDrawer = () => {
           <SidebarMenuItem>
             <Tooltip>
               <TooltipTrigger asChild>
-                <SidebarTrigger />
+                <SidebarTrigger className="px-3 w-fit justify-start" />
               </TooltipTrigger>
               <TooltipContent side="right" sideOffset={8} className={drawerOpen ? "hidden" : ""}>
                 <p className="text-xs">Open Sidebar</p>
